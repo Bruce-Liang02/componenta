@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "noEmit": true,
+    "paths": {
+      "@componenta/core": ["../core/src"]
+    }
+  },
+  "include": ["src/**/*"]
+}

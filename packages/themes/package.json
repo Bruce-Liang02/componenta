@@ -1,0 +1,64 @@
+{
+  "name": "@componenta/themes",
+  "version": "0.1.0",
+  "description": "Componenta 主题包集合：default-light / business-blue / default-dark / compact-tech",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./default-light": {
+      "types": "./dist/default-light/index.d.ts",
+      "import": "./dist/default-light/index.js"
+    },
+    "./business-blue": {
+      "types": "./dist/business-blue/index.d.ts",
+      "import": "./dist/business-blue/index.js"
+    },
+    "./default-dark": {
+      "types": "./dist/default-dark/index.d.ts",
+      "import": "./dist/default-dark/index.js"
+    },
+    "./compact-tech": {
+      "types": "./dist/compact-tech/index.d.ts",
+      "import": "./dist/compact-tech/index.js"
+    },
+    "./switcher": {
+      "types": "./dist/switcher/index.d.ts",
+      "import": "./dist/switcher/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsc -p tsconfig.build.json --watch",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "clean": "rimraf dist coverage .turbo"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.5.2",
+    "@componenta/core": "workspace:*",
+    "antd": "^5.22.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  }
+}

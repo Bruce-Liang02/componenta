@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "noEmit": true,
+    "paths": {
+      "@componenta/core": ["../core/src"],
+      "@componenta/components": ["../components/src"],
+      "@componenta/themes": ["../themes/src"],
+      "@componenta/shared": ["../shared/src"]
+    }
+  },
+  "include": ["src/**/*"]
+}

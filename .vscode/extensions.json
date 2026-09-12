@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint",
+    "editorconfig.editorconfig",
+    "vue.volar",
+    "redhat.java",
+    "vscjava.vscode-java-pack",
+    "vscjava.vscode-gradle"
+  ],
+  "unwantedRecommendations": []
+}

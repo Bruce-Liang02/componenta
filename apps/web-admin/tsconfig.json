@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@componenta/core": ["../../packages/core/src"],
+      "@componenta/components": ["../../packages/components/src"],
+      "@componenta/themes": ["../../packages/themes/src"],
+      "@componenta/shared": ["../../packages/shared/src"],
+      "@componenta/admin-shell": ["../../packages/admin-shell/src"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*", "vite.config.ts"]
+}
