@@ -21,6 +21,7 @@ import {
   SelectionGuidePage,
   CheatsheetPage,
   PageSchemaGenerator,
+  VariantDemoPage,
   setCatalogData,
   staticCatalog,
 } from '@componenta/component-catalog';
@@ -124,6 +125,7 @@ function AppRoutes() {
         <Route path="catalog/guide" element={<SelectionGuidePage />} />
         <Route path="catalog/cheatsheet" element={<CheatsheetPage />} />
         <Route path="catalog/schema-generator" element={<PageSchemaGenerator />} />
+        <Route path="catalog/demo/:id" element={<VariantDemoPage />} />
         <Route path="experiment" element={<div>实验特性（预留）</div>} />
         <Route path="settings" element={<Settings />} />
       </Route>

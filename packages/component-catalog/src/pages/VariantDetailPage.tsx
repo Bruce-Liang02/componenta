@@ -29,6 +29,7 @@ import {
 } from '@ant-design/icons';
 import { getVariantById, getCategoryOfVariant, getComponentOfVariant } from '../data/catalogStore';
 import { getDimensionsDescription } from '../types/dimensions';
+import { VariantDemo } from '../components/VariantDemo';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -176,6 +177,24 @@ export function VariantDetailPage() {
           </Col>
         ))}
       </Row>
+
+      {/* Live Demo 预览 */}
+      <Card
+        title={
+          <Space>
+            <PlayCircleOutlined style={{ color: '#1677ff' }} />
+            <span>实时效果预览</span>
+          </Space>
+        }
+        style={{ marginBottom: 24 }}
+        extra={
+          <Button size="small" onClick={() => navigate(`/catalog/demo/${variant.id}`)}>
+            全屏查看
+          </Button>
+        }
+      >
+        <VariantDemo variantId={variant.id} />
+      </Card>
 
       {/* 一句话定位 */}
       <Card style={{ marginBottom: 24, background: '#f6ffed', borderColor: '#b7eb8f' }}>

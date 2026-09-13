@@ -5,3 +5,4 @@ export { VariantCard } from './VariantCard';
 export type { VariantCardProps } from './VariantCard';
 export { VariantGrid } from './VariantGrid';
 export type { VariantGridProps } from './VariantGrid';
+export { VariantDemo } from './VariantDemo';

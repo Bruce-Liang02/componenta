@@ -7,3 +7,4 @@ export { VariantComparePage } from './VariantComparePage';
 export { SelectionGuidePage } from './SelectionGuidePage';
 export { CheatsheetPage } from './CheatsheetPage';
 export { PageSchemaGenerator } from './PageSchemaGenerator';
+export { VariantDemoPage } from './VariantDemoPage';
