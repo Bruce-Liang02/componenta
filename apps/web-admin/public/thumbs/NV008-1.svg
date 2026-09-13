@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240">
+  <rect width="400" height="240" rx="8" fill="#f9f0ff" />
+  <rect x="0" y="0" width="400" height="4" fill="#722ed1" />
+  <g opacity="0.08">
+        <rect x="50" y="130" width="120" height="10" rx="2" fill="#722ed1" />
+        <rect x="50" y="148" width="100" height="10" rx="2" fill="#722ed1" />
+        <rect x="50" y="166" width="140" height="10" rx="2" fill="#722ed1" />
+      </g>
+  <text x="200" y="60" text-anchor="middle" font-size="36">🧭</text>
+  <text x="200" y="100" text-anchor="middle" font-size="20" font-weight="bold" fill="#722ed1" font-family="monospace">NV008</text>
+  <text x="200" y="155" text-anchor="middle" font-size="14" fill="#333" font-family="system-ui,sans-serif">带操作的面包屑</text>
+  <text x="200" y="215" text-anchor="middle" font-size="11" fill="#999" font-family="system-ui,sans-serif">导航与布局</text>
+</svg>

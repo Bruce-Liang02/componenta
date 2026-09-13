@@ -12,6 +12,10 @@ export default defineConfig({
       '@componenta/themes': path.resolve(__dirname, '../../packages/themes/src'),
       '@componenta/shared': path.resolve(__dirname, '../../packages/shared/src'),
       '@componenta/admin-shell': path.resolve(__dirname, '../../packages/admin-shell/src'),
+      '@componenta/component-catalog': path.resolve(
+        __dirname,
+        '../../packages/component-catalog/src',
+      ),
     },
   },
   server: {

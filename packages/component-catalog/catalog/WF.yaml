@@ -1,0 +1,626 @@
+# catalog/WF.yaml
+# 流程与业务编排类组件形态
+
+category: WF
+categoryName: 流程与业务编排
+categoryNameEn: Workflow
+description: 流程设计器、审批流、规则引擎等流程类组件
+
+components:
+  # ===== FlowDesigner 流程设计器 =====
+  - component: flow-designer
+    name: 流程设计器
+    description: 可视化流程编排与审批流设计
+
+    variants:
+      - id: WF001
+        name: 基础审批流设计器
+        tagline: 拖拽式节点编排，审批流核心能力
+        thumb:
+          - /thumbs/WF001-1.svg
+        pros:
+          - 可视化编排
+          - 用户直观理解流程
+          - 支持条件分支
+        cons:
+          - 实现复杂度高
+          - 复杂流程性能差
+        useCases:
+          - OA 审批流
+          - 请假/报销流程
+          - 简单业务流转
+        antiCases:
+          - 超复杂 BPMN 流程
+          - 节点超过 50 个
+        related: [WF002, WF003]
+        tech: AntV X6 + React Flow
+        complexity: 5
+        rating: 4
+        status: active
+        tags:
+          - 审批流
+          - 拖拽
+          - 可视化
+
+      - id: WF002
+        name: BPMN 流程设计器
+        tagline: 标准 BPMN 2.0 建模，企业级流程
+        thumb:
+          - /thumbs/WF002-1.svg
+        pros:
+          - 符合 BPMN 标准
+          - 支持复杂流程
+          - 与 Camunda/Flowable 对接
+        cons:
+          - 学习曲线陡峭
+          - 实现极其复杂
+        useCases:
+          - 企业级 BPM 系统
+          - 需要对接 BPMN 引擎
+          - 专业流程分析师使用
+        antiCases:
+          - 简单审批流
+          - 非专业用户使用
+        related: [WF001, WF003]
+        tech: bpmn.js + 自定义扩展
+        complexity: 5
+        rating: 3
+        status: active
+        tags:
+          - BPMN
+          - 企业级
+          - 标准
+
+      - id: WF003
+        name: 状态机设计器
+        tagline: 状态 + 事件驱动，轻量流程编排
+        thumb:
+          - /thumbs/WF003-1.svg
+        pros:
+          - 比 BPMN 简单
+          - 状态清晰
+          - 适合技术团队
+        cons:
+          - 不适合非技术用户
+          - 不支持并行分支
+        useCases:
+          - 订单状态流转
+          - 工单状态管理
+          - 技术团队协作
+        antiCases:
+          - 非技术用户
+          - 需要并行分支
+        related: [WF001, WF002]
+        tech: XState + AntV X6
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 状态机
+          - 轻量
+          - 技术团队
+
+  # ===== Approval 审批 =====
+  - component: approval
+    name: 审批面板
+    description: 审批操作与审批记录展示
+
+    variants:
+      - id: WF004
+        name: 基础审批面板
+        tagline: 审批意见 + 通过/驳回按钮，最通用的审批形态
+        thumb:
+          - /thumbs/WF004-1.svg
+        pros:
+          - 简单直观
+          - 实现简单
+          - 用户最熟悉
+        cons:
+          - 不支持复杂审批
+          - 缺少审批辅助信息
+        useCases:
+          - 简单审批场景
+          - 一级审批
+        antiCases:
+          - 多级审批
+          - 需要会签/或签
+        related: [WF005, WF006]
+        tech: Ant Design Form + Timeline
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 简单
+          - 基础
+
+      - id: WF005
+        name: 高级审批面板
+        tagline: 支持会签/或签/条件审批，审批记录时间线
+        thumb:
+          - /thumbs/WF005-1.svg
+        pros:
+          - 支持复杂审批逻辑
+          - 审批记录完整
+          - 支持加签/转签
+        cons:
+          - 实现复杂
+          - 用户学习成本高
+        useCases:
+          - 多级审批
+          - 会签/或签
+          - 需要加签/转签
+        antiCases:
+          - 简单一级审批
+        related: [WF004, WF006]
+        tech: Ant Design Timeline + Steps + Form
+        complexity: 4
+        rating: 4
+        status: active
+        tags:
+          - 会签
+          - 多级
+          - 高级
+
+      - id: WF006
+        name: 审批流程图
+        tagline: 可视化展示审批流转路径
+        thumb:
+          - /thumbs/WF006-1.svg
+        pros:
+          - 流程一目了然
+          - 审批状态清晰
+          - 辅助理解流程
+        cons:
+          - 实现复杂
+          - 节点多时展示困难
+        useCases:
+          - 审批详情页辅助展示
+          - 流程回溯
+          - 流程教学
+        antiCases:
+          - 节点超过 20 个
+          - 简单线性流程
+        related: [WF004, WF005]
+        tech: AntV X6 (只读模式)
+        complexity: 3
+        rating: 3
+        status: active
+        tags:
+          - 流程图
+          - 可视化
+          - 辅助
+
+  # ===== RuleEngine 规则引擎 =====
+  - component: rule-engine
+    name: 规则配置
+    description: 业务规则的可视化配置
+
+    variants:
+      - id: WF007
+        name: 基础条件配置
+        tagline: IF-THEN 规则配置，简单的条件判断
+        thumb:
+          - /thumbs/WF007-1.svg
+        pros:
+          - 简单直观
+          - 非技术人员可用
+          - 实现成本低
+        cons:
+          - 只支持简单条件
+          - 不支持复杂逻辑
+        useCases:
+          - 简单的业务规则
+          - 折扣/优惠规则
+          - 通知触发条件
+        antiCases:
+          - 复杂业务逻辑
+          - 需要编程能力
+        related: [WF008]
+        tech: Ant Design Form + 自定义规则组件
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - IF-THEN
+          - 简单规则
+
+      - id: WF008
+        name: 决策表配置
+        tagline: 表格化的多条件决策矩阵
+        thumb:
+          - /thumbs/WF008-1.svg
+        pros:
+          - 多条件组合清晰
+          - 适合业务分析师
+          - 可导出为代码
+        cons:
+          - 学习成本较高
+          - 条件多时表格过大
+        useCases:
+          - 定价策略配置
+          - 风控规则
+          - 权限矩阵
+        antiCases:
+          - 简单规则
+          - 非技术人员
+        related: [WF007]
+        tech: Ant Design Table (editable) + 规则引擎
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 决策表
+          - 多条件
+          - 矩阵
+
+  # ===== TimerScheduler 定时调度 =====
+  - component: timer-scheduler
+    name: 定时调度
+    description: 任务调度与定时触发配置
+
+    variants:
+      - id: WF009
+        name: Cron 表达式配置器
+        tagline: 可视化 Cron 配置，定时任务首选
+        thumb:
+          - /thumbs/WF009-1.svg
+        pros:
+          - 可视化配置
+          - 降低 Cron 学习成本
+          - 实时预览执行时间
+        cons:
+          - 复杂表达式仍难理解
+          - 边界情况需人工检查
+        useCases:
+          - 报表定时生成
+          - 数据定时同步
+          - 定时邮件发送
+        antiCases:
+          - 事件触发型任务
+          - 无需定时的场景
+        related: [WF010, WF011]
+        tech: 可视化 Cron 编辑器 + 预览组件
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - Cron
+          - 可视化
+          - 定时
+
+      - id: WF010
+        name: 可视化调度日历
+        tagline: 日历视图展示任务调度计划
+        thumb:
+          - /thumbs/WF010-1.svg
+        pros:
+          - 调度计划一目了然
+          - 冲突检测直观
+          - 支持拖拽调整
+        cons:
+          - 实现复杂
+          - 任务多时日历拥挤
+        useCases:
+          - 运维任务调度面板
+          - 生产排程可视化
+          - 人员值班管理
+        antiCases:
+          - 任务数量少于 5 个
+          - 不需要时间维度展示
+        related: [WF009, WF011]
+        tech: FullCalendar + 任务调度后端
+        complexity: 4
+        rating: 4
+        status: active
+        tags:
+          - 日历
+          - 调度
+          - 可视化
+
+      - id: WF011
+        name: 任务依赖链
+        tagline: 任务依赖关系展示，DAG 可视化
+        thumb:
+          - /thumbs/WF011-1.svg
+        pros:
+          - 依赖关系清晰
+          - 关键路径易识别
+          - 适合复杂编排
+        cons:
+          - 学习成本高
+          - 节点多时布局复杂
+        useCases:
+          - 数据管道编排
+          - 生产工序编排
+          - 报表依赖管理
+        antiCases:
+          - 独立任务无需依赖
+          - 任务数量少于 5 个
+        related: [WF009, WF010]
+        tech: AntV X6 (DAG) + 调度引擎
+        complexity: 5
+        rating: 3
+        status: active
+        tags:
+          - DAG
+          - 依赖
+          - 编排
+
+  # ===== NotificationFlow 通知流程 =====
+  - component: notification-flow
+    name: 通知流程
+    description: 消息通知的流程化编排
+
+    variants:
+      - id: WF012
+        name: 通知模板配置
+        tagline: 消息模板管理，多通道通知配置
+        thumb:
+          - /thumbs/WF012-1.svg
+        pros:
+          - 模板复用
+          - 多通道统一管理
+          - 变量插值灵活
+        cons:
+          - 模板调试困难
+          - 多语言支持复杂
+        useCases:
+          - 订单状态通知
+          - 系统告警通知
+          - 营销短信模板
+        antiCases:
+          - 固定文案无需模板
+          - 通知类型少于 3 种
+        related: [WF013, WF014]
+        tech: Ant Design Form + 模板引擎 (Handlebars/FreeMarker)
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 模板
+          - 多通道
+          - 插值
+
+      - id: WF013
+        name: 通知路由配置
+        tagline: 根据条件选择通知通道和接收人
+        thumb:
+          - /thumbs/WF013-1.svg
+        pros:
+          - 智能路由
+          - 减少无效通知
+          - 提升触达效率
+        cons:
+          - 规则配置复杂
+          - 调试困难
+        useCases:
+          - 告警分级路由
+          - VIP 客户优先通道
+          - 工作时间/非工作时间分流
+        antiCases:
+          - 单一通道通知
+          - 无路由规则需求
+        related: [WF012, WF014]
+        tech: 规则引擎 + 消息中间件 (RabbitMQ/Kafka)
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 路由
+          - 分流
+          - 智能
+
+      - id: WF014
+        name: 通知流程编排
+        tagline: 可视化通知流程，多步骤编排
+        thumb:
+          - /thumbs/WF014-1.svg
+        pros:
+          - 通知逻辑可视化
+          - 支持复杂流程
+          - 重试/降级机制
+        cons:
+          - 实现极其复杂
+          - 调试困难
+        useCases:
+          - 催收通知流程
+          - 客户回访提醒
+          - 多步骤审批通知
+        antiCases:
+          - 简单通知场景
+          - 无需流程编排
+        related: [WF012, WF013]
+        tech: React Flow + 消息编排引擎
+        complexity: 5
+        rating: 3
+        status: active
+        tags:
+          - 编排
+          - 多步骤
+          - 流程
+
+  # ===== DataPipeline 数据管道 =====
+  - component: data-pipeline
+    name: 数据管道
+    description: 数据抽取/转换/加载的可视化编排
+
+    variants:
+      - id: WF015
+        name: ETL 可视化编排
+        tagline: 拖拽式 ETL 节点编排，数据集成核心
+        thumb:
+          - /thumbs/WF015-1.svg
+        pros:
+          - 可视化数据流
+          - 降低 ETL 门槛
+          - 支持复用组件
+        cons:
+          - 复杂转换需编码
+          - 性能瓶颈明显
+        useCases:
+          - 数据仓库 ETL
+          - 系统数据迁移
+          - 报表数据准备
+        antiCases:
+          - 超大数据量 (TB 级)
+          - 需要实时流处理
+        related: [WF016, WF017]
+        tech: AntV X6 + Airflow/SeaTunnel 对接
+        complexity: 5
+        rating: 4
+        status: active
+        tags:
+          - ETL
+          - 可视化
+          - 数据集成
+
+      - id: WF016
+        name: 数据质量规则
+        tagline: 数据质量检查规则配置与监控
+        thumb:
+          - /thumbs/WF016-1.svg
+        pros:
+          - 质量问题早发现
+          - 规则可复用
+          - 监控面板直观
+        cons:
+          - 规则配置门槛高
+          - 误报影响信任
+        useCases:
+          - 数据入库质量检查
+          - 报表数据校验
+          - 主数据治理
+        antiCases:
+          - 数据量极小
+          - 不需要质量治理
+        related: [WF015, WF017]
+        tech: Ant Design Form + 规则引擎 + 监控面板
+        complexity: 4
+        rating: 4
+        status: active
+        tags:
+          - 数据质量
+          - 规则
+          - 治理
+
+      - id: WF017
+        name: 数据血缘展示
+        tagline: 数据上下游血缘关系可视化
+        thumb:
+          - /thumbs/WF017-1.svg
+        pros:
+          - 数据链路清晰
+          - 变更影响易评估
+          - 合规审计必备
+        cons:
+          - 实现依赖元数据
+          - 关系复杂时布局困难
+        useCases:
+          - 数据仓库血缘
+          - 变更影响分析
+          - 合规审计溯源
+        antiCases:
+          - 无元数据管理
+          - 数据表少于 10 个
+        related: [WF015, WF016]
+        tech: AntV X6/G6 + 元数据平台
+        complexity: 5
+        rating: 3
+        status: active
+        tags:
+          - 血缘
+          - 元数据
+          - 合规
+
+  # ===== Checklist 检查清单 =====
+  - component: checklist
+    name: 检查清单
+    description: 流程步骤检查与确认
+
+    variants:
+      - id: WF018
+        name: 基础检查清单
+        tagline: 步骤列表 + 勾选确认，操作标准化
+        thumb:
+          - /thumbs/WF018-1.svg
+        pros:
+          - 操作简单
+          - 减少遗漏
+          - 用户易理解
+        cons:
+          - 静态清单灵活性差
+          - 不支持条件步骤
+        useCases:
+          - 上线检查清单
+          - 设备巡检清单
+          - 合规检查项
+        antiCases:
+          - 步骤数量超过 30 个
+          - 需要条件分支
+        related: [WF019, WF020]
+        tech: Ant Design List + Checkbox + Progress
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 清单
+          - 勾选
+          - 标准化
+
+      - id: WF019
+        name: 条件检查清单
+        tagline: 根据条件动态生成检查步骤
+        thumb:
+          - /thumbs/WF019-1.svg
+        pros:
+          - 按需展示步骤
+          - 减少无关干扰
+          - 适应多场景
+        cons:
+          - 实现复杂
+          - 条件配置门槛高
+        useCases:
+          - 不同业务类型不同检查项
+          - 根据金额触发不同审批
+          - 按地区显示合规要求
+        antiCases:
+          - 所有场景步骤相同
+          - 条件规则极少
+        related: [WF018, WF020]
+        tech: Ant Design List + 规则引擎 + 动态渲染
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 条件
+          - 动态
+          - 规则
+
+      - id: WF020
+        name: 进度追踪清单
+        tagline: 检查进度可视化，多角色协作看板
+        thumb:
+          - /thumbs/WF020-1.svg
+        pros:
+          - 进度一目了然
+          - 支持多角色协作
+          - 逾期自动提醒
+        cons:
+          - 实现复杂
+          - 需要权限管理
+        useCases:
+          - 项目里程碑追踪
+          - 合规审计进度
+          - 供应商准入审核
+        antiCases:
+          - 一次性检查清单
+          - 不需要进度追踪
+        related: [WF018, WF019]
+        tech: Ant Design Progress + List + 权限管理 + WebSocket
+        complexity: 4
+        rating: 4
+        status: active
+        tags:
+          - 进度
+          - 协作
+          - 追踪

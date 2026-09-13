@@ -1,0 +1,1157 @@
+# catalog/PT.yaml
+# 基础展示类组件形态
+
+category: PT
+categoryName: 基础展示
+categoryNameEn: Presentation & Table
+description: 数据展示、表格、列表、描述等基础展示类组件
+
+components:
+  # ===== ProTable 高级表格 =====
+  - component: pro-table
+    name: 高级表格
+    description: 列表页数据展示与操作的核心组件，B 端最高频组件
+    icon: TableOutlined
+
+    variants:
+      - id: PT001
+        name: 标准分页表格
+        tagline: 后端分页 + 工具栏 + 列设置，最通用的列表页形态
+        thumb:
+          - /thumbs/PT001-1.svg
+        pros:
+          - 交互模式用户最熟悉，学习成本为零
+          - 后端分页，天然支持大数据量
+          - 列设置/密度切换等工程化能力成熟
+        cons:
+          - 移动端体验差，需另做适配
+          - 首屏需等待请求，弱网下观感差
+          - 字段少时显得过重
+        useCases:
+          - 数据量 1 万条以上的业务列表
+          - 需要筛选、排序、批量操作的场景
+          - 字段数 8 个以上，需要列显隐控制
+        antiCases:
+          - 字段数少于 5 个，表格显得过重
+          - 强视觉呈现需求（应选卡片列表）
+          - 移动端为主的场景
+        related: [PT002, PT003, PT004]
+        relatedComponents:
+          - id: IP005
+            name: 高级筛选表单
+            relation: 常搭配使用
+            reason: 表格筛选场景
+        tech: Ant Design Table + useRequest
+        dependencies:
+          - antd ^5.0
+          - ahooks ^3.0
+        dimensions:
+          layout: standard-table
+          interaction: readonly
+          data: backend-page
+          visual: traditional
+          techGen: antd
+        complexity: 2
+        rating: 5
+        performance: high
+        accessibility: good
+        demo: /catalog/demo/PT001
+        status: active
+        versions:
+          - version: '1.0'
+            date: '2026-09-13'
+            changes: 初始版本
+        tags:
+          - 大数据量
+          - 后端分页
+          - Ant Design
+
+      - id: PT002
+        name: 卡片列表表格
+        tagline: 视觉优先，字段较少，适合图文混合展示
+        thumb:
+          - /thumbs/PT002-1.svg
+        pros:
+          - 视觉效果好，信息层次清晰
+          - 适合图文混合展示
+          - 响应式适配容易
+        cons:
+          - 不适合字段多的场景
+          - 不支持复杂排序/筛选
+          - 数据密度低
+        useCases:
+          - 字段数 3-5 个的列表
+          - 需要缩略图或图标展示
+          - 移动端和 PC 端共用
+        antiCases:
+          - 字段数超过 6 个
+          - 需要批量操作
+          - 数据量超过 500 条
+        related: [PT001, PT003, PT004]
+        tech: Ant Design Card + List
+        dimensions:
+          layout: card-list
+          interaction: readonly
+          data: frontend-page
+          visual: card-based
+          techGen: antd
+        complexity: 1
+        rating: 4
+        performance: medium
+        accessibility: excellent
+        status: active
+        tags:
+          - 视觉优先
+          - 图文混合
+          - 响应式
+
+      - id: PT003
+        name: 紧凑数据表
+        tagline: 高密度，专业用户，适合金融/数据密集型场景
+        thumb:
+          - /thumbs/PT003-1.svg
+        pros:
+          - 信息密度高，一屏展示更多数据
+          - 专业用户操作效率高
+          - 支持键盘导航
+        cons:
+          - 新手上手成本高
+          - 不适合普通用户
+          - 移动端几乎不可用
+        useCases:
+          - 金融交易数据展示
+          - 专业用户的高频操作场景
+          - 数据分析师的数据浏览
+        antiCases:
+          - 面向普通用户的系统
+          - 移动端场景
+          - 字段需要详细说明的场景
+        related: [PT001, PT002, PT004]
+        tech: Ant Design Table + compact mode
+        dimensions:
+          layout: compact
+          interaction: readonly
+          data: backend-page
+          visual: data-dense
+          techGen: antd
+        complexity: 2
+        rating: 3
+        performance: high
+        accessibility: basic
+        status: active
+        tags:
+          - 高密度
+          - 专业用户
+          - 金融
+
+      - id: PT004
+        name: 虚拟滚动表格
+        tagline: 十万级数据流畅滚动，前端渲染零延迟
+        thumb:
+          - /thumbs/PT004-1.svg
+        pros:
+          - 支持超大数据量（10 万+）
+          - 前端渲染，滚动零延迟
+          - 内存占用可控
+        cons:
+          - 实现复杂度高
+          - 行高固定，不支持动态高度
+          - 首屏仍需加载全量数据
+        useCases:
+          - 数据量 10 万条以上
+          - 需要流畅滚动体验
+          - 日志/监控数据展示
+        antiCases:
+          - 数据量少于 1000 条（杀鸡用牛刀）
+          - 需要动态行高
+          - 后端分页已满足需求
+        related: [PT001, PT002, PT003]
+        tech: rc-virtual-list + Ant Design Table
+        dimensions:
+          layout: standard-table
+          interaction: readonly
+          data: virtual-scroll
+          visual: modern
+          techGen: antd
+        complexity: 4
+        rating: 4
+        performance: high
+        accessibility: good
+        status: active
+        tags:
+          - 超大数据量
+          - 虚拟滚动
+          - 高性能
+
+  # ===== SearchForm 查询表单 =====
+  - component: search-form
+    name: 查询表单
+    description: 列表页顶部的筛选条件表单
+
+    variants:
+      - id: PT005
+        name: 基础查询表单
+        tagline: 单行展开，5 个以内筛选条件
+        thumb:
+          - /thumbs/PT005-1.svg
+        pros:
+          - 简单直观，用户最熟悉
+          - 实现成本低
+          - 与表格配合成熟
+        cons:
+          - 筛选条件多时占空间
+          - 不支持复杂筛选逻辑
+        useCases:
+          - 筛选条件 5 个以内
+          - 简单关键词搜索
+        antiCases:
+          - 筛选条件超过 8 个
+          - 需要高级筛选逻辑
+        related: [PT006, PT007]
+        tech: Ant Design Form
+        complexity: 1
+        rating: 4
+        status: active
+        tags:
+          - 简单
+          - 基础
+
+      - id: PT006
+        name: 高级查询表单
+        tagline: 展开/收起，支持高级筛选条件组合
+        thumb:
+          - /thumbs/PT006-1.svg
+        pros:
+          - 支持多条件组合
+          - 展开/收起节省空间
+          - 支持保存筛选方案
+        cons:
+          - 交互复杂度增加
+          - 实现成本较高
+        useCases:
+          - 筛选条件 5-15 个
+          - 需要条件组合（AND/OR）
+          - 用户需保存筛选方案
+        antiCases:
+          - 筛选条件少于 3 个
+        related: [PT005, PT007]
+        tech: Ant Design Form + 自定义逻辑
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 高级筛选
+          - 条件组合
+
+      - id: PT007
+        name: 折叠查询表单
+        tagline: 标签式筛选，轻量快速
+        thumb:
+          - /thumbs/PT007-1.svg
+        pros:
+          - 轻量，不占太多空间
+          - 适合快速切换
+        cons:
+          - 不支持复杂筛选
+          - 不适合多条件组合
+        useCases:
+          - 状态/类型快速切换
+          - 筛选逻辑简单
+        antiCases:
+          - 需要输入关键词搜索
+          - 筛选条件复杂
+        related: [PT005, PT006]
+        tech: Ant Design Tabs + Tag
+        complexity: 1
+        rating: 3
+        status: active
+        tags:
+          - 轻量
+          - 标签筛选
+
+  # ===== Descriptions 详细描述 =====
+  - component: descriptions
+    name: 详细描述
+    description: 详情信息的结构化展示
+
+    variants:
+      - id: PT008
+        name: 基础详细描述
+        tagline: 标签-值对的标准展示
+        thumb:
+          - /thumbs/PT008-1.svg
+        pros:
+          - 结构清晰，信息层次分明
+          - 用户最熟悉
+        cons:
+          - 字段多时页面过长
+          - 不支持编辑
+        useCases:
+          - 详情页信息展示
+          - 字段数 10-20 个
+        antiCases:
+          - 字段数少于 5 个
+          - 需要编辑功能
+        related: [PT009, PT010]
+        tech: Ant Design Descriptions
+        complexity: 1
+        rating: 4
+        status: active
+        tags:
+          - 详情页
+          - 标准
+
+      - id: PT009
+        name: 分栏详细描述
+        tagline: 多列布局，节省纵向空间
+        thumb:
+          - /thumbs/PT009-1.svg
+        pros:
+          - 节省纵向空间
+          - 信息密度高
+        cons:
+          - 列数多时横向拥挤
+          - 响应式适配需额外处理
+        useCases:
+          - 字段数 15-30 个
+          - 详情页空间有限
+        antiCases:
+          - 移动端场景
+          - 字段内容很长
+        related: [PT008, PT010]
+        tech: Ant Design Descriptions + Grid
+        complexity: 2
+        rating: 3
+        status: active
+        tags:
+          - 多列
+          - 节省空间
+
+      - id: PT010
+        name: 卡片化详细描述
+        tagline: 分组卡片，视觉层次清晰
+        thumb:
+          - /thumbs/PT010-1.svg
+        pros:
+          - 分组清晰，视觉层次好
+          - 适合复杂信息结构
+        cons:
+          - 占用空间大
+          - 实现成本较高
+        useCases:
+          - 信息需要分组展示
+          - 详情页信息量大
+        antiCases:
+          - 字段数少于 10 个
+          - 简单信息展示
+        related: [PT008, PT009]
+        tech: Ant Design Card + Descriptions
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 分组
+          - 卡片化
+
+  # ===== EditableTable 可编辑表格 =====
+  - component: editable-table
+    name: 可编辑表格
+    description: 支持行内编辑的表格组件，适用于批量数据录入与修改场景
+
+    variants:
+      - id: PT011
+        name: 行内编辑表格
+        tagline: 单击行直接进入编辑态，最轻量的编辑模式
+        thumb:
+          - /thumbs/PT011-1.svg
+        pros:
+          - 交互直觉，单击即编辑
+          - 无需弹窗，上下文不丢失
+          - 适合批量快速修改
+        cons:
+          - 单元格编辑控件可能遮挡内容
+          - 复杂表单字段（如富文本）难以内联
+          - 误触风险较高
+        useCases:
+          - 简单字段的批量修改（如数量、状态、备注）
+          - 类 Excel 的数据录入场景
+          - 审批流程中的快速批注
+        antiCases:
+          - 单行字段超过 10 个，编辑控件过于拥挤
+          - 需要复杂校验逻辑的表单
+        related: [PT012, PT013, PT014]
+        tech: Ant Design Table + Form + editableCell
+        dependencies:
+          - antd ^5.0
+        dimensions:
+          layout: standard-table
+          interaction: inline-edit
+          data: batch-save
+          visual: traditional
+          techGen: antd
+        complexity: 3
+        rating: 4
+        performance: medium
+        accessibility: good
+        status: active
+        tags:
+          - 行内编辑
+          - 批量录入
+          - 轻量交互
+
+      - id: PT012
+        name: 弹窗编辑表格
+        tagline: 点击操作按钮弹出表单，适合字段多的行编辑
+        thumb:
+          - /thumbs/PT012-1.svg
+        pros:
+          - 编辑空间充足，支持复杂表单
+          - 可做完整校验再提交
+          - 不影响表格本身布局
+        cons:
+          - 弹窗打断工作流，上下文切换
+          - 无法同时编辑多行
+          - 移动端弹窗体验差
+        useCases:
+          - 单行字段 8 个以上的编辑场景
+          - 需要完整表单校验的数据修改
+          - 包含上传、选择器等复杂控件
+        antiCases:
+          - 需要批量修改多行数据
+          - 字段简单、追求效率的场景
+        related: [PT011, PT013, PT015]
+        tech: Ant Design Table + Modal + Form
+        dimensions:
+          layout: standard-table
+          interaction: modal-edit
+          data: single-save
+          visual: traditional
+          techGen: antd
+        complexity: 3
+        rating: 4
+        performance: medium
+        accessibility: good
+        status: active
+        tags:
+          - 弹窗编辑
+          - 复杂表单
+          - 单行操作
+
+      - id: PT013
+        name: 整行编辑表格
+        tagline: 整行切换编辑/只读态，兼顾批量修改与数据校验
+        thumb:
+          - /thumbs/PT013-1.svg
+        pros:
+          - 编辑态明确，不会误触
+          - 支持一次性保存整行修改
+          - 可实现编辑中取消/恢复
+        cons:
+          - 同一时间只能编辑一行
+          - 操作路径多一步（点击进入编辑态）
+          - 行内控件过多时布局紧张
+        useCases:
+          - 需要逐行确认修改的场景
+          - 配置项管理（如费率、参数设置）
+          - 数据质量要求高，需逐行校验
+        antiCases:
+          - 需要同时编辑多行的场景
+          - 字段极少（用行内编辑更简洁）
+        related: [PT011, PT012, PT014]
+        tech: Ant Design Table + Form + rowState
+        dimensions:
+          layout: standard-table
+          interaction: row-edit
+          data: row-save
+          visual: traditional
+          techGen: antd
+        complexity: 3
+        rating: 4
+        performance: medium
+        accessibility: good
+        status: active
+        tags:
+          - 整行编辑
+          - 逐行确认
+          - 数据校验
+
+      - id: PT014
+        name: 拖拽排序表格
+        tagline: 支持拖拽调整行顺序，直观管理优先级
+        thumb:
+          - /thumbs/PT014-1.svg
+        pros:
+          - 排序操作直观，所见即所得
+          - 减少手动输入排序号的工作量
+          - 用户满意度高
+        cons:
+          - 需要额外的拖拽库支持
+          - 触摸设备拖拽体验不稳定
+          - 大数据量下拖拽性能下降
+        useCases:
+          - 菜单/栏目/任务的优先级排序
+          - 轮播图/广告位的顺序管理
+          - 审批流程节点的顺序调整
+        antiCases:
+          - 数据量超过 500 行
+          - 纯只读展示场景
+          - 无需排序的场景
+        related: [PT011, PT013, PT015]
+        tech: Ant Design Table + dnd-kit / react-beautiful-dnd
+        dimensions:
+          layout: standard-table
+          interaction: drag-sort
+          data: order-save
+          visual: interactive
+          techGen: antd
+        complexity: 4
+        rating: 4
+        performance: medium
+        accessibility: basic
+        status: active
+        tags:
+          - 拖拽排序
+          - 优先级管理
+          - 交互丰富
+
+      - id: PT015
+        name: 汇总编辑表格
+        tagline: 底部实时汇总行，编辑时即时看到合计变化
+        thumb:
+          - /thumbs/PT015-1.svg
+        pros:
+          - 编辑与汇总同步可见，减少核算错误
+          - 适合金额、数量等需要合计的场景
+          - 支持分组小计与总计
+        cons:
+          - 实现复杂度较高，需实时计算
+          - 大数据量下汇总计算可能卡顿
+          - 列定义与汇总逻辑耦合
+        useCases:
+          - 采购订单/报价单（金额汇总）
+          - 工时填报（小时数汇总）
+          - 预算编制（分类小计 + 总计）
+        antiCases:
+          - 无需汇总的普通数据编辑
+          - 字段无数值计算需求
+        related: [PT011, PT012, PT013]
+        tech: Ant Design Table + Form + useMemo 汇总
+        dimensions:
+          layout: standard-table
+          interaction: inline-edit
+          data: batch-save
+          visual: data-dense
+          techGen: antd
+        complexity: 4
+        rating: 4
+        performance: medium
+        accessibility: good
+        status: active
+        tags:
+          - 实时汇总
+          - 金额计算
+          - 财务场景
+
+  # ===== TreeTable 树形表格 =====
+  - component: tree-table
+    name: 树形表格
+    description: 支持树形层级结构展示的表格组件，适用于有父子关系的数据展示
+
+    variants:
+      - id: PT016
+        name: 标准树形表格
+        tagline: 展开/收起子节点，经典层级展示
+        thumb:
+          - /thumbs/PT016-1.svg
+        pros:
+          - 层级关系一目了然
+          - 展开/收起可控，不占过多空间
+          - 用户理解成本低
+        cons:
+          - 层级过深时缩进严重，右侧列被挤压
+          - 子节点多时展开后页面过长
+          - 排序/筛选在树形结构中受限
+        useCases:
+          - 组织架构展示
+          - 多级分类管理（如商品类目）
+          - 权限树的查看与配置
+        antiCases:
+          - 层级超过 4 级
+          - 同级节点超过 50 个
+        related: [PT017, PT018]
+        tech: Ant Design Table + treeData + expandable
+        dimensions:
+          layout: tree-table
+          interaction: expand-collapse
+          data: hierarchical
+          visual: traditional
+          techGen: antd
+        complexity: 3
+        rating: 4
+        performance: medium
+        accessibility: good
+        status: active
+        tags:
+          - 树形结构
+          - 层级展示
+          - 组织架构
+
+      - id: PT017
+        name: 可编辑树形表格
+        tagline: 树形结构 + 行内编辑，支持层级数据的增删改
+        thumb:
+          - /thumbs/PT017-1.svg
+        pros:
+          - 查看与编辑一体化
+          - 支持新增子节点/兄弟节点
+          - 拖拽移动节点位置
+        cons:
+          - 实现复杂度高（树形 + 编辑双重逻辑）
+          - 数据一致性维护困难
+          - 误操作风险（删除父节点影响子节点）
+        useCases:
+          - 多级目录管理（如文档树）
+          - 组织架构的人员调整
+          - WBS 工作分解结构编辑
+        antiCases:
+          - 只读展示场景（用标准树形表格即可）
+          - 树形结构变动不频繁
+        related: [PT016, PT018]
+        tech: Ant Design Table + Form + treeData + editableRow
+        dimensions:
+          layout: tree-table
+          interaction: inline-edit
+          data: hierarchical
+          visual: traditional
+          techGen: antd
+        complexity: 5
+        rating: 3
+        performance: medium
+        accessibility: basic
+        status: active
+        tags:
+          - 树形编辑
+          - 层级管理
+          - 复杂交互
+
+      - id: PT018
+        name: 懒加载树形表格
+        tagline: 按需加载子节点，应对超大数据量树形结构
+        thumb:
+          - /thumbs/PT018-1.svg
+        pros:
+          - 首屏只加载顶层节点，速度快
+          - 支持无限层级的海量数据
+          - 内存占用可控
+        cons:
+          - 展开子节点需等待请求
+          - 全局搜索/排序需后端支持
+          - 实现复杂度较高
+        useCases:
+          - 文件管理器（如网盘目录）
+          - 超大型组织架构（万级节点）
+          - 多层级数据探索
+        antiCases:
+          - 数据总量少于 500 条（全量加载即可）
+          - 需要频繁跨层级比较数据
+        related: [PT016, PT017]
+        tech: Ant Design Table + loadData + 异步展开
+        dimensions:
+          layout: tree-table
+          interaction: lazy-expand
+          data: hierarchical-lazy
+          visual: traditional
+          techGen: antd
+        complexity: 4
+        rating: 4
+        performance: high
+        accessibility: good
+        status: active
+        tags:
+          - 懒加载
+          - 海量数据
+          - 异步加载
+
+  # ===== Timeline 时间线 =====
+  - component: timeline
+    name: 时间线
+    description: 按时间顺序展示事件流的组件，适用于流程追踪与历史记录
+
+    variants:
+      - id: PT019
+        name: 垂直时间线
+        tagline: 经典纵向时间轴，最适合事件流展示
+        thumb:
+          - /thumbs/PT019-1.svg
+        pros:
+          - 时间流向清晰（从上到下）
+          - 每个事件可承载丰富内容
+          - 用户最熟悉的布局
+        cons:
+          - 事件多时页面过长
+          - 不适合横向空间有限的场景
+          - 难以同时对比多个时间线
+        useCases:
+          - 订单状态流转追踪
+          - 审批/工单处理记录
+          - 项目里程碑展示
+        antiCases:
+          - 事件数超过 50 个（需分页或折叠）
+          - 需要对比多条时间线
+        related: [PT020, PT021]
+        tech: Ant Design Timeline
+        dimensions:
+          layout: vertical-timeline
+          interaction: readonly
+          data: chronological
+          visual: classic
+          techGen: antd
+        complexity: 1
+        rating: 5
+        performance: high
+        accessibility: good
+        status: active
+        tags:
+          - 垂直布局
+          - 事件流
+          - 状态追踪
+
+      - id: PT020
+        name: 水平时间线
+        tagline: 横向展开，适合里程碑与阶段展示
+        thumb:
+          - /thumbs/PT020-1.svg
+        pros:
+          - 横向视觉冲击力强
+          - 适合阶段性里程碑展示
+          - 节省纵向空间
+        cons:
+          - 节点多时横向溢出
+          - 内容承载量有限（每个节点空间小）
+          - 移动端需横向滚动
+        useCases:
+          - 项目里程碑/版本发布时间线
+          - 产品路线图展示
+          - 简历工作经历时间线
+        antiCases:
+          - 事件节点超过 10 个
+          - 每个事件需要详细描述
+          - 移动端为主的场景
+        related: [PT019, PT021]
+        tech: Ant Design Timeline + mode=horizontal
+        dimensions:
+          layout: horizontal-timeline
+          interaction: readonly
+          data: chronological
+          visual: milestone
+          techGen: antd
+        complexity: 2
+        rating: 3
+        performance: high
+        accessibility: basic
+        status: active
+        tags:
+          - 水平布局
+          - 里程碑
+          - 路线图
+
+      - id: PT021
+        name: 交替时间线
+        tagline: 左右交替排列，信息密度更高
+        thumb:
+          - /thumbs/PT021-1.svg
+        pros:
+          - 利用左右两侧空间，信息密度高
+          - 视觉节奏感好
+          - 适合内容较多的事件节点
+        cons:
+          - 阅读路径非线性的，需适应
+          - 实现复杂度高于普通垂直时间线
+          - 窄屏下需降级为单侧
+        useCases:
+          - 公司发展历程展示
+          - 产品迭代记录
+          - 个人成就/荣誉时间线
+        antiCases:
+          - 屏幕宽度小于 768px
+          - 事件数超过 30 个
+          - 需要严格顺序阅读的场景
+        related: [PT019, PT020]
+        tech: Ant Design Timeline + mode=alternate
+        dimensions:
+          layout: alternate-timeline
+          interaction: readonly
+          data: chronological
+          visual: alternating
+          techGen: antd
+        complexity: 2
+        rating: 4
+        performance: high
+        accessibility: basic
+        status: active
+        tags:
+          - 交替布局
+          - 信息密度
+          - 视觉节奏
+
+  # ===== StatGroup 统计数组 =====
+  - component: stat-group
+    name: 统计数组
+    description: 将多个统计指标以卡片/数字形式集中展示，适用于数据概览与仪表盘
+
+    variants:
+      - id: PT022
+        name: 数字卡片组
+        tagline: 大数字 + 趋势箭头，最经典的数据概览形态
+        thumb:
+          - /thumbs/PT022-1.svg
+        pros:
+          - 核心指标一目了然
+          - 支持同比/环比趋势展示
+          - 用户最熟悉的数据概览方式
+        cons:
+          - 指标过多时占横向空间
+          - 无法展示数据分布细节
+          - 容易沦为"数字堆砌"
+        useCases:
+          - 首页/仪表盘核心指标展示
+          - 电商 GMV、订单数、用户数概览
+          - 运营数据日报
+        antiCases:
+          - 指标超过 8 个（信息过载）
+          - 需要数据钻取的场景
+        related: [PT023, PT024]
+        tech: Ant Design Statistic + Card
+        dimensions:
+          layout: stat-cards
+          interaction: readonly
+          data: aggregate
+          visual: dashboard
+          techGen: antd
+        complexity: 1
+        rating: 5
+        performance: high
+        accessibility: good
+        status: active
+        tags:
+          - 数字概览
+          - 仪表盘
+          - 核心指标
+
+      - id: PT023
+        name: 迷你图表组
+        tagline: 数字 + Sparkline 迷你图，趋势与数值兼顾
+        thumb:
+          - /thumbs/PT023-1.svg
+        pros:
+          - 同时展示当前值与趋势变化
+          - 迷你图占用空间小
+          - 信息密度高于纯数字
+        cons:
+          - 需要图表库依赖
+          - 迷你图精度有限，无法展示细节
+          - 实现成本高于纯数字卡片
+        useCases:
+          - 股票/基金行情概览
+          - 服务器性能监控面板
+          - 销售趋势快速预览
+        antiCases:
+          - 不需要展示趋势的场景
+          - 指标数据无时间序列
+        related: [PT022, PT024]
+        tech: Ant Design Statistic + @ant-design/charts Sparkline
+        dimensions:
+          layout: stat-cards
+          interaction: readonly
+          data: time-series
+          visual: sparkline
+          techGen: antd
+        complexity: 3
+        rating: 4
+        performance: medium
+        accessibility: basic
+        status: active
+        tags:
+          - 迷你图
+          - 趋势展示
+          - 数据可视化
+
+      - id: PT024
+        name: 进度指标组
+        tagline: 环形/条形进度 + 数值，适合目标达成类指标
+        thumb:
+          - /thumbs/PT024-1.svg
+        pros:
+          - 直观展示目标完成度
+          - 视觉冲击力强
+          - 支持多指标对比
+        cons:
+          - 只适合百分比类指标
+          - 进度值超出 0-100% 时表达混乱
+          - 颜色编码需统一规范
+        useCases:
+          - KPI 完成率展示
+          - 项目进度仪表盘
+          - 存储/带宽使用率监控
+        antiCases:
+          - 指标非百分比类型
+          - 需要展示精确数值
+          - 指标间无对比需求
+        related: [PT022, PT023]
+        tech: Ant Design Statistic + Progress
+        dimensions:
+          layout: stat-cards
+          interaction: readonly
+          data: percentage
+          visual: progress
+          techGen: antd
+        complexity: 2
+        rating: 4
+        performance: high
+        accessibility: good
+        status: active
+        tags:
+          - 进度展示
+          - 目标达成
+          - 环形图
+
+  # ===== EmptyState 空状态 =====
+  - component: empty-state
+    name: 空状态
+    description: 数据为空时的占位展示组件，引导用户进行下一步操作
+
+    variants:
+      - id: PT025
+        name: 标准空状态
+        tagline: 图标 + 文案 + 操作按钮，最通用的空数据提示
+        thumb:
+          - /thumbs/PT025-1.svg
+        pros:
+          - 用户理解成本低
+          - 提供明确的行动引导
+          - 实现简单，复用度高
+        cons:
+          - 形式单一，容易忽视
+          - 无法展示示例数据帮助用户理解
+          - 多次出现可能造成视觉疲劳
+        useCases:
+          - 列表页首次加载无数据
+          - 搜索无结果
+          - 新建前的空状态引导
+        antiCases:
+          - 需要展示示例数据辅助说明
+          - 复杂的引导流程
+        related: [PT026, PT027]
+        tech: Ant Design Empty
+        dimensions:
+          layout: centered-empty
+          interaction: action-redirect
+          data: empty
+          visual: minimal
+          techGen: antd
+        complexity: 1
+        rating: 4
+        performance: high
+        accessibility: excellent
+        status: active
+        tags:
+          - 空数据
+          - 引导操作
+          - 标准
+
+      - id: PT026
+        name: 插图型空状态
+        tagline: 精美插画 + 文案，视觉友好，提升品牌感
+        thumb:
+          - /thumbs/PT026-1.svg
+        pros:
+          - 视觉效果好，提升产品品质感
+          - 可融入品牌元素
+          - 缓解空数据带来的消极感受
+        cons:
+          - 需要设计资源
+          - 插画文件增大页面体积
+          - 不同场景需不同插画
+        useCases:
+          - 产品首页无数据引导
+          - 新用户首次使用引导
+          - 品牌化产品展示
+        antiCases:
+          - 纯工具型/效率型系统
+          - 无设计资源支持
+        related: [PT025, PT027]
+        tech: 自定义 SVG 插画 + Ant Design Empty
+        dimensions:
+          layout: centered-empty
+          interaction: action-redirect
+          data: empty
+          visual: illustrated
+          techGen: antd
+        complexity: 2
+        rating: 4
+        performance: high
+        accessibility: good
+        status: active
+        tags:
+          - 插画
+          - 品牌感
+          - 视觉友好
+
+      - id: PT027
+        name: 骨架屏空状态
+        tagline: 内容骨架占位，让用户预知页面结构
+        thumb:
+          - /thumbs/PT027-1.svg
+        pros:
+          - 减少加载感知时间
+          - 保持页面布局稳定，无跳动
+          - 加载与空数据之间过渡自然
+        cons:
+          - 实现成本高于静态空状态
+          - 需区分 loading 与 empty 两种态
+          - 骨架屏样式需与实际内容匹配
+        useCases:
+          - 数据加载中的过渡展示
+          - 异步内容区域占位
+          - 首屏优化场景
+        antiCases:
+          - 页面结构简单（无需骨架屏）
+          - 加载时间极短（< 200ms）
+        related: [PT025, PT026]
+        tech: Ant Design Skeleton
+        dimensions:
+          layout: skeleton-placeholder
+          interaction: passive-loading
+          data: loading
+          visual: skeleton
+          techGen: antd
+        complexity: 2
+        rating: 4
+        performance: high
+        accessibility: good
+        status: active
+        tags:
+          - 骨架屏
+          - 加载优化
+          - 布局稳定
+
+  # ===== CommentList 评论/动态列表 =====
+  - component: comment-list
+    name: 评论/动态列表
+    description: 展示评论、操作记录、动态流的列表组件，适用于协作与互动场景
+
+    variants:
+      - id: PT028
+        name: 标准评论列表
+        tagline: 头像 + 昵称 + 时间 + 内容，经典评论展示
+        thumb:
+          - /thumbs/PT028-1.svg
+        pros:
+          - 用户最熟悉的评论形式
+          - 信息结构清晰
+          - 支持嵌套回复
+        cons:
+          - 评论多时页面过长
+          - 嵌套过深时阅读体验下降
+          - 需要处理评论排序/筛选
+        useCases:
+          - 文章/博客评论区
+          - 工单/任务的讨论区
+          - 审批意见收集
+        antiCases:
+          - 评论需要实时推送（需 WebSocket 方案）
+          - 超长讨论串（> 100 条）
+        related: [PT029, PT030]
+        tech: Ant Design Comment + List
+        dimensions:
+          layout: comment-thread
+          interaction: interactive
+          data: chronological
+          visual: classic
+          techGen: antd
+        complexity: 2
+        rating: 4
+        performance: medium
+        accessibility: good
+        status: active
+        tags:
+          - 评论
+          - 嵌套回复
+          - 讨论区
+
+      - id: PT029
+        name: 操作日志列表
+        tagline: 时间 + 操作人 + 操作内容，无头像的紧凑记录流
+        thumb:
+          - /thumbs/PT029-1.svg
+        pros:
+          - 信息密度高，适合大量日志
+          - 结构紧凑，占用空间少
+          - 便于按时间追溯操作
+        cons:
+          - 视觉单调，缺少层次
+          - 不适合社交/互动场景
+          - 操作内容需严格规范格式
+        useCases:
+          - 系统操作审计日志
+          - 数据变更记录
+          - 审批流程操作记录
+        antiCases:
+          - 需要社交互动的评论场景
+          - 评论内容丰富（含图片/表情）
+        related: [PT028, PT030]
+        tech: Ant Design Timeline + List
+        dimensions:
+          layout: log-list
+          interaction: readonly
+          data: chronological
+          visual: compact
+          techGen: antd
+        complexity: 1
+        rating: 4
+        performance: high
+        accessibility: good
+        status: active
+        tags:
+          - 操作日志
+          - 审计追踪
+          - 紧凑展示
+
+      - id: PT030
+        name: 动态信息流
+        tagline: 类社交媒体信息流，支持图文/附件的丰富内容
+        thumb:
+          - /thumbs/PT030-1.svg
+        pros:
+          - 内容丰富（支持图片、文件、@提及）
+          - 互动性强（点赞、转发、评论）
+          - 用户参与感强
+        cons:
+          - 实现复杂度高
+          - 需要实时推送与无限滚动
+          - 内容审核成本高
+        useCases:
+          - 企业内部社交/公告动态
+          - 项目动态更新（类 GitHub Activity）
+          - 团队协作状态流
+        antiCases:
+          - 纯数据展示场景
+          - 无需互动的系统
+          - 内容无结构化保障的场景
+        related: [PT028, PT029]
+        tech: Ant Design List + 自定义 Feed 组件
+        dimensions:
+          layout: feed-stream
+          interaction: interactive
+          data: real-time
+          visual: rich-content
+          techGen: antd
+        complexity: 5
+        rating: 4
+        performance: medium
+        accessibility: basic
+        status: active
+        tags:
+          - 信息流
+          - 社交互动
+          - 富内容

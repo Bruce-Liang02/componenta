@@ -1,0 +1,468 @@
+# catalog/AU.yaml
+# 权限与组织类组件形态
+
+category: AU
+categoryName: 权限与组织
+categoryNameEn: Authorization
+description: 权限按钮、组织选择、登录面板、角色管理、数据权限等权限类组件
+
+components:
+  # ===== AuthButton 权限按钮 =====
+  - component: auth-button
+    name: 权限按钮
+    description: 根据权限控制按钮的显隐和可用性
+
+    variants:
+      - id: AU001
+        name: 隐藏式权限按钮
+        tagline: 无权限时按钮完全隐藏
+        thumb:
+          - /thumbs/AU001-1.svg
+        pros:
+          - 界面简洁
+          - 用户无困惑
+          - 实现简单
+        cons:
+          - 用户不知道有此功能
+          - 不利于权限发现
+        useCases:
+          - 普通用户不需要知道的功能
+          - 管理功能对用户隐藏
+        antiCases:
+          - 需要引导用户申请权限
+          - 功能需要可见但不可用
+        related: [AU002, AU003]
+        tech: 自定义 HOC + 权限 Context
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 隐藏
+          - 简洁
+
+      - id: AU002
+        name: 禁用式权限按钮
+        tagline: 无权限时按钮显示但禁用，悬停提示原因
+        thumb:
+          - /thumbs/AU002-1.svg
+        pros:
+          - 功能可见
+          - 引导用户申请权限
+          - 信息透明
+        cons:
+          - 界面略杂乱
+          - 用户可能沮丧
+        useCases:
+          - 需要引导用户申请权限
+          - 功能需要可见
+        antiCases:
+          - 用户不可能获得该权限
+          - 追求简洁界面
+        related: [AU001, AU003]
+        tech: Ant Design Button (disabled) + Tooltip
+        complexity: 1
+        rating: 4
+        status: active
+        tags:
+          - 禁用
+          - 可见
+          - 引导
+
+      - id: AU003
+        name: 锁定式权限按钮
+        tagline: 带锁图标的按钮，明确提示需要解锁/申请
+        thumb:
+          - /thumbs/AU003-1.svg
+        pros:
+          - 视觉提示明确
+          - 支持一键申请
+          - 体验较好
+        cons:
+          - 实现稍复杂
+          - 需要后端申请接口
+        useCases:
+          - 需要权限申请流程
+          - SaaS 产品的增值功能
+        antiCases:
+          - 简单的权限控制
+          - 不需要申请流程
+        related: [AU001, AU002]
+        tech: Button + LockIcon + Modal (申请弹窗)
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 锁定
+          - 申请
+          - SaaS
+
+  # ===== OrgPicker 组织选择器 =====
+  - component: org-picker
+    name: 组织选择器
+    description: 组织架构、部门、人员选择
+
+    variants:
+      - id: AU004
+        name: 部门树选择器
+        tagline: 树形组织架构选择，支持多选
+        thumb:
+          - /thumbs/AU004-1.svg
+        pros:
+          - 组织架构清晰
+          - 支持层级选择
+          - 用户最熟悉
+        cons:
+          - 组织大时性能差
+          - 搜索不便
+        useCases:
+          - 部门选择
+          - 组织架构浏览
+          - 人员分配
+        antiCases:
+          - 组织超过 1000 人
+          - 扁平组织
+        related: [AU005, AU006]
+        tech: Ant Design TreeSelect + 组织 API
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 树形
+          - 部门
+          - 组织架构
+
+      - id: AU005
+        name: 人员选择器（弹窗）
+        tagline: 弹窗式人员选择，支持搜索和已选列表
+        thumb:
+          - /thumbs/AU005-1.svg
+        pros:
+          - 支持大量人员
+          - 搜索 + 已选列表
+          - 体验较好
+        cons:
+          - 弹窗打断流程
+          - 实现复杂
+        useCases:
+          - 审批人选择
+          - 任务分配
+          - 人员多选
+        antiCases:
+          - 单选场景
+          - 简单部门选择
+        related: [AU004, AU006]
+        tech: Modal + Transfer / Table
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 弹窗
+          - 搜索
+          - 人员
+
+      - id: AU006
+        name: 部门人员混合选择器
+        tagline: 同时选择部门和人员，权限分配场景
+        thumb:
+          - /thumbs/AU006-1.svg
+        pros:
+          - 同时支持部门和人员
+          - 权限分配场景友好
+          - 减少操作步骤
+        cons:
+          - 实现复杂
+          - 界面较复杂
+        useCases:
+          - 权限分配
+          - 数据范围配置
+          - 通知范围设置
+        antiCases:
+          - 只需选人
+          - 简单场景
+        related: [AU004, AU005]
+        tech: Tree + Table 混合
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 混合
+          - 权限
+          - 复杂
+
+  # ===== LoginPanel 登录面板 =====
+  - component: login-panel
+    name: 登录面板
+    description: 用户登录界面
+
+    variants:
+      - id: AU007
+        name: 基础登录面板
+        tagline: 用户名 + 密码，最朴素的登录形态
+        thumb:
+          - /thumbs/AU007-1.svg
+        pros:
+          - 实现简单
+          - 用户最熟悉
+          - 兼容性好
+        cons:
+          - 安全性一般
+          - 体验一般
+        useCases:
+          - 内部系统
+          - 简单认证需求
+        antiCases:
+          - 面向公众的系统
+          - 高安全需求
+        related: [AU008, AU009]
+        tech: Ant Design Form
+        complexity: 1
+        rating: 4
+        status: active
+        tags:
+          - 基础
+          - 密码
+
+      - id: AU008
+        name: 扫码登录面板
+        tagline: 二维码扫码登录，移动端友好
+        thumb:
+          - /thumbs/AU008-1.svg
+        pros:
+          - 移动端友好
+          - 安全性高
+          - 体验好
+        cons:
+          - 需要 APP 配合
+          - 需要摄像头
+          - 弱网体验差
+        useCases:
+          - 面向公众的系统
+          - 已有移动端 APP
+          - 高安全需求
+        antiCases:
+          - 内部系统
+          - 无移动端 APP
+        related: [AU007, AU009]
+        tech: 二维码生成 + WebSocket 轮询
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 扫码
+          - 二维码
+          - 移动端
+
+      - id: AU009
+        name: SSO 统一认证面板
+        tagline: 支持多种认证方式，对接企业 SSO
+        thumb:
+          - /thumbs/AU009-1.svg
+        pros:
+          - 支持多种认证方式
+          - 对接企业 SSO
+          - 一次登录多处使用
+        cons:
+          - 实现复杂
+          - 需要 SSO 基础设施
+        useCases:
+          - 企业多系统对接
+          - 集团统一认证
+          - SaaS 多租户
+        antiCases:
+          - 单系统
+          - 无 SSO 基础设施
+        related: [AU007, AU008]
+        tech: OIDC / SAML + Ant Design Form
+        complexity: 4
+        rating: 4
+        status: active
+        tags:
+          - SSO
+          - 多认证
+          - 企业级
+
+  # ===== RoleManager 角色管理 =====
+  - component: role-manager
+    name: 角色管理
+    description: 角色定义、权限分配、角色继承
+
+    variants:
+      - id: AU010
+        name: 基础角色列表
+        tagline: 角色增删改查，简单的角色管理表格
+        thumb:
+          - /thumbs/AU010-1.svg
+        pros:
+          - 实现简单
+          - 用户易理解
+          - 维护成本低
+        cons:
+          - 权限粒度粗
+          - 不支持复杂场景
+        useCases:
+          - 小型系统角色管理
+          - 简单权限配置
+          - 角色数量少于 10 个
+        antiCases:
+          - 复杂权限体系
+          - 角色继承场景
+        related: [AU011, AU012]
+        tech: Ant Design Table + Modal
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 角色
+          - 列表
+          - 基础
+
+      - id: AU011
+        name: 权限矩阵角色管理
+        tagline: 角色 + 权限矩阵，勾选式权限配置
+        thumb:
+          - /thumbs/AU011-1.svg
+        pros:
+          - 权限配置直观
+          - 支持细粒度控制
+          - 批量操作友好
+        cons:
+          - 权限多时界面复杂
+          - 需要权限树支持
+        useCases:
+          - 中大型系统权限管理
+          - 功能权限配置
+          - 菜单权限分配
+        antiCases:
+          - 权限少于 20 个
+          - 无需细粒度控制
+        related: [AU010, AU012]
+        tech: Ant Design Table (树形) + Checkbox
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 矩阵
+          - 细粒度
+          - 勾选
+
+      - id: AU012
+        name: 角色继承与模板
+        tagline: 支持角色继承关系，基于模板快速创建角色
+        thumb:
+          - /thumbs/AU012-1.svg
+        pros:
+          - 减少重复配置
+          - 支持权限继承
+          - 适合复杂组织
+        cons:
+          - 实现复杂
+          - 继承关系维护成本高
+        useCases:
+          - 集团型企业管理
+          - 多租户 SaaS
+          - 复杂权限体系
+        antiCases:
+          - 扁平组织
+          - 角色少于 5 个
+        related: [AU010, AU011]
+        tech: Ant Design Tree + 角色继承模型
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 继承
+          - 模板
+          - 复杂
+
+  # ===== DataPermission 数据权限 =====
+  - component: data-permission
+    name: 数据权限
+    description: 数据级别的权限控制，如部门数据、个人数据
+
+    variants:
+      - id: AU013
+        name: 数据范围选择器
+        tagline: 配置用户可见的数据范围（本人/本部门/全部）
+        thumb:
+          - /thumbs/AU013-1.svg
+        pros:
+          - 实现简单
+          - 用户易理解
+          - 满足基础数据隔离
+        cons:
+          - 粒度不够细
+          - 不支持自定义范围
+        useCases:
+          - CRM 客户数据隔离
+          - 订单数据权限
+          - 报表数据范围
+        antiCases:
+          - 复杂数据权限
+          - 跨部门协作场景
+        related: [AU014, AU015]
+        tech: Ant Design Radio/Select + 后端过滤
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 范围
+          - 隔离
+          - 基础
+
+      - id: AU014
+        name: 自定义数据规则
+        tagline: 基于规则引擎配置复杂数据权限条件
+        thumb:
+          - /thumbs/AU014-1.svg
+        pros:
+          - 灵活度高
+          - 支持复杂业务规则
+          - 可视化配置
+        cons:
+          - 实现成本高
+          - 规则维护复杂
+        useCases:
+          - 多条件数据过滤
+          - 跨区域数据权限
+          - 项目制数据隔离
+        antiCases:
+          - 简单数据权限
+          - 权限规则固定
+        related: [AU013, AU015]
+        tech: 规则引擎 UI + Ant Design Form
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 规则
+          - 灵活
+          - 复杂
+
+      - id: AU015
+        name: 数据权限预览与调试
+        tagline: 预览用户实际可见的数据范围，支持权限调试
+        thumb:
+          - /thumbs/AU015-1.svg
+        pros:
+          - 权限可视化
+          - 便于问题排查
+          - 提升管理效率
+        cons:
+          - 需要后端配合
+          - 实现成本高
+        useCases:
+          - 管理员权限配置验证
+          - 权限问题排查
+          - 权限审计
+        antiCases:
+          - 简单权限系统
+          - 无需调试场景
+        related: [AU013, AU014]
+        tech: 数据预览组件 + 权限模拟 API
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 预览
+          - 调试
+          - 审计

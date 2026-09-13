@@ -1,0 +1,627 @@
+# catalog/FB.yaml
+# 状态与反馈类组件形态
+
+category: FB
+categoryName: 状态与反馈
+categoryNameEn: Feedback
+description: 状态标签、通知、确认框、结果页、骨架屏、进度反馈、错误边界、引导等反馈类组件
+
+components:
+  # ===== StatusTag 状态标签 =====
+  - component: status-tag
+    name: 状态标签
+    description: 业务状态的视觉标识
+
+    variants:
+      - id: FB001
+        name: 基础状态标签
+        tagline: 色块 + 文字，最常用的状态标识
+        thumb:
+          - /thumbs/FB001-1.svg
+        pros:
+          - 简单直观
+          - 颜色区分明显
+          - 实现简单
+        cons:
+          - 颜色盲用户不友好
+          - 状态多时颜色不够用
+        useCases:
+          - 列表/表格状态列
+          - 卡片状态标识
+          - 3-7 种状态
+        antiCases:
+          - 状态超过 10 种
+          - 需要辅助图标
+        related: [FB002, FB003]
+        tech: Ant Design Tag / Badge
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 色块
+          - 基础
+          - 状态
+
+      - id: FB002
+        name: 图标状态标签
+        tagline: 图标 + 文字 + 色块，增强辨识度
+        thumb:
+          - /thumbs/FB002-1.svg
+        pros:
+          - 多通道信息（颜色+图标+文字）
+          - 色盲友好
+          - 辨识度高
+        cons:
+          - 占用空间稍大
+          - 需要额外图标资源
+        useCases:
+          - 无障碍要求高的场景
+          - 需要快速辨识状态
+        antiCases:
+          - 空间极其有限
+          - 简单状态标识
+        related: [FB001, FB003]
+        tech: Ant Design Tag + Icon
+        complexity: 1
+        rating: 4
+        status: active
+        tags:
+          - 图标
+          - 无障碍
+          - 多通道
+
+      - id: FB003
+        name: 进度状态标签
+        tagline: 带进度环/条的状态标签
+        thumb:
+          - /thumbs/FB003-1.svg
+        pros:
+          - 同时展示状态和进度
+          - 信息丰富
+        cons:
+          - 实现复杂
+          - 占用空间大
+        useCases:
+          - 审批进度
+          - 任务完成度
+          - 订单流转状态
+        antiCases:
+          - 无进度信息
+          - 简单状态标识
+        related: [FB001, FB002]
+        tech: Ant Design Progress + Tag
+        complexity: 2
+        rating: 3
+        status: active
+        tags:
+          - 进度
+          - 环形
+          - 丰富
+
+  # ===== Notification 通知 =====
+  - component: notification
+    name: 通知提醒
+    description: 系统消息、操作反馈、公告通知
+
+    variants:
+      - id: FB004
+        name: 全局消息提示
+        tagline: message 轻提示，操作反馈最常用
+        thumb:
+          - /thumbs/FB004-1.svg
+        pros:
+          - 轻量不打断
+          - 用户最熟悉
+          - 实现简单
+        cons:
+          - 信息量少
+          - 容易被忽略
+          - 自动消失
+        useCases:
+          - 操作成功/失败反馈
+          - 轻量提示信息
+        antiCases:
+          - 需要用户确认
+          - 重要通知
+        related: [FB005, FB006]
+        tech: Ant Design message
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 轻提示
+          - 操作反馈
+
+      - id: FB005
+        name: 通知抽屉
+        tagline: 侧滑通知面板，系统消息中心
+        thumb:
+          - /thumbs/FB005-1.svg
+        pros:
+          - 信息量大
+          - 不离开当前页面
+          - 支持消息分类
+        cons:
+          - 遮挡部分内容
+          - 需要消息管理后端
+        useCases:
+          - 系统消息中心
+          - 通知列表
+          - 未读消息提醒
+        antiCases:
+          - 简单操作反馈
+          - 不需要消息管理
+        related: [FB004, FB006]
+        tech: Ant Design Drawer + List
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 消息中心
+          - 抽屉
+          - 通知
+
+      - id: FB006
+        name: 确认对话框
+        tagline: Modal 确认，危险操作二次确认
+        thumb:
+          - /thumbs/FB006-1.svg
+        pros:
+          - 强制用户确认
+          - 防止误操作
+          - 用户最熟悉
+        cons:
+          - 打断用户流程
+          - 频繁弹出影响体验
+        useCases:
+          - 删除确认
+          - 提交确认
+          - 危险操作确认
+        antiCases:
+          - 非危险操作
+          - 频繁操作场景
+        related: [FB004, FB005]
+        tech: Ant Design Modal.confirm
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 确认
+          - 对话框
+          - 危险操作
+
+  # ===== Result 结果页 =====
+  - component: result
+    name: 结果页
+    description: 操作完成后的结果展示
+
+    variants:
+      - id: FB007
+        name: 基础结果页
+        tagline: 图标 + 标题 + 描述 + 操作按钮
+        thumb:
+          - /thumbs/FB007-1.svg
+        pros:
+          - 结构清晰
+          - 用户最熟悉
+          - 实现简单
+        cons:
+          - 信息量少
+          - 不支持复杂引导
+        useCases:
+          - 表单提交成功
+          - 支付完成页
+          - 操作结果反馈
+        antiCases:
+          - 需要详细后续引导
+          - 复杂业务流程
+        related: [FB008]
+        tech: Ant Design Result
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 结果
+          - 成功
+          - 基础
+
+      - id: FB008
+        name: 引导式结果页
+        tagline: 结果 + 后续步骤引导，带进度跟踪
+        thumb:
+          - /thumbs/FB008-1.svg
+        pros:
+          - 引导用户后续操作
+          - 展示流程进度
+          - 体验更完整
+        cons:
+          - 实现复杂
+          - 简单场景显得过重
+        useCases:
+          - 复杂流程完成页
+          - 需要后续引导
+          - 多步骤操作结果
+        antiCases:
+          - 简单操作反馈
+          - 不需要后续引导
+        related: [FB007]
+        tech: Ant Design Result + Steps
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 引导
+          - 步骤
+          - 进度
+
+  # ===== Skeleton 骨架屏 =====
+  - component: skeleton
+    name: 骨架屏
+    description: 内容加载前的占位展示，减少用户等待焦虑
+
+    variants:
+      - id: FB009
+        name: 基础骨架屏
+        tagline: 灰色占位块模拟内容布局，加载中过渡
+        thumb:
+          - /thumbs/FB009-1.svg
+        pros:
+          - 降低等待感知
+          - 展示页面结构
+          - 实现简单
+        cons:
+          - 需要手动编写占位布局
+          - 内容变化时需适配
+        useCases:
+          - 列表页数据加载
+          - 详情页内容加载
+          - 仪表盘首屏加载
+        antiCases:
+          - 加载时间低于 200ms
+          - 无需感知加载状态
+        related: [FB010, FB011]
+        tech: Ant Design Skeleton
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 占位
+          - 加载
+          - 基础
+
+      - id: FB010
+        name: 动画骨架屏
+        tagline: 带流光/脉冲动画的占位屏，增强加载感知
+        thumb:
+          - /thumbs/FB010-1.svg
+        pros:
+          - 动画效果引导视觉
+          - 比静态占位更有活力
+          - 用户等待焦虑更低
+        cons:
+          - 动画可能影响性能
+          - 低端设备可能卡顿
+        useCases:
+          - 面向客户的门户页面
+          - 首屏加载过渡
+          - 品牌体验要求高的场景
+        antiCases:
+          - 性能敏感的内部系统
+          - 无障碍场景下动画需关闭
+        related: [FB009, FB011]
+        tech: Ant Design Skeleton (active) + CSS animation
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 动画
+          - 流光
+          - 体验
+
+      - id: FB011
+        name: 自适应骨架屏
+        tagline: 根据实际数据动态生成占位形状，加载完成后无缝切换
+        thumb:
+          - /thumbs/FB011-1.svg
+        pros:
+          - 占位与实际内容高度匹配
+          - 切换时无布局跳动
+          - 体验最佳
+        cons:
+          - 需要预知数据结构
+          - 实现成本较高
+        useCases:
+          - 复杂卡片布局加载
+          - 动态内容区域
+          - 报表仪表盘首屏
+        antiCases:
+          - 内容结构不固定
+          - 快速原型阶段
+        related: [FB009, FB010]
+        tech: 自定义 Skeleton + 数据驱动渲染
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 自适应
+          - 动态
+          - 无缝
+
+  # ===== ProgressFeedback 进度反馈 =====
+  - component: progress-feedback
+    name: 进度反馈
+    description: 操作执行过程中的进度展示与反馈
+
+    variants:
+      - id: FB012
+        name: 顶部进度条
+        tagline: 页面顶部的全局加载进度指示
+        thumb:
+          - /thumbs/FB012-1.svg
+        pros:
+          - 全局可见不打断
+          - 适合路由切换场景
+          - 用户感知自然
+        cons:
+          - 无法展示精确百分比
+          - 仅适合线性流程
+        useCases:
+          - 路由页面切换
+          - 整页数据刷新
+          - SPA 应用跳转
+        antiCases:
+          - 局部加载场景
+          - 需要精确进度值
+        related: [FB013, FB014]
+        tech: NProgress / Ant Design Progress
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 顶部
+          - 全局
+          - 路由
+
+      - id: FB013
+        name: 步骤进度反馈
+        tagline: 多步骤操作的逐步进度展示，标识当前阶段
+        thumb:
+          - /thumbs/FB013-1.svg
+        pros:
+          - 清晰展示流程阶段
+          - 用户知道当前在哪一步
+          - 支持步骤回退
+        cons:
+          - 仅适合多步骤流程
+          - 步骤固定不够灵活
+        useCases:
+          - 批量数据处理流程
+          - 配置向导
+          - 审批流转过程
+        antiCases:
+          - 单步操作
+          - 步骤数量不固定
+        related: [FB012, FB014]
+        tech: Ant Design Steps + Progress
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 步骤
+          - 流程
+          - 向导
+
+      - id: FB014
+        name: 异步任务进度面板
+        tagline: 后台长任务实时进度面板，支持查看/取消/重试
+        thumb:
+          - /thumbs/FB014-1.svg
+        pros:
+          - 支持长时间后台任务
+          - 实时进度百分比
+          - 用户可离开做其他事
+        cons:
+          - 需要 WebSocket/SSE 支持
+          - 实现复杂度较高
+        useCases:
+          - 大数据量报表生成
+          - 文件批量处理
+          - 数据迁移任务
+        antiCases:
+          - 短时间操作
+          - 无需后台执行
+        related: [FB012, FB013]
+        tech: WebSocket / SSE + Ant Design Progress + Drawer
+        complexity: 4
+        rating: 4
+        status: active
+        tags:
+          - 异步
+          - 长任务
+          - 实时
+
+  # ===== ErrorBoundary 错误边界 =====
+  - component: error-boundary
+    name: 错误边界
+    description: 捕获前端渲染异常，防止白屏并提供恢复路径
+
+    variants:
+      - id: FB015
+        name: 全局错误兜底页
+        tagline: 捕获未处理异常，展示全局错误页
+        thumb:
+          - /thumbs/FB015-1.svg
+        pros:
+          - 防止白屏
+          - 统一的错误出口
+          - 实现简单
+        cons:
+          - 用户体验中断
+          - 错误恢复手段有限
+        useCases:
+          - 应用级异常兜底
+          - 生产环境错误保护
+          - 未知异常捕获
+        antiCases:
+          - 异步错误场景
+          - 需要局部恢复
+        related: [FB016, FB017]
+        tech: React ErrorBoundary + Result 组件
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 全局
+          - 兜底
+          - 白屏
+
+      - id: FB016
+        name: 局部错误边界
+        tagline: 包裹关键模块，局部崩溃不影响其他区域
+        thumb:
+          - /thumbs/FB016-1.svg
+        pros:
+          - 错误隔离范围小
+          - 可局部重试恢复
+          - 用户体验影响小
+        cons:
+          - 需要逐模块包裹
+          - 边界数量多时管理复杂
+        useCases:
+          - 仪表盘单个卡片
+          - 复杂表单分区
+          - 第三方组件隔离
+        antiCases:
+          - 全局状态错误
+          - 路由级错误
+        related: [FB015, FB017]
+        tech: React ErrorBoundary (局部) + Fallback UI
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 局部
+          - 隔离
+          - 重试
+
+      - id: FB017
+        name: 智能错误恢复边界
+        tagline: 错误捕获后自动上报 + 提供重试/降级/反馈多种恢复路径
+        thumb:
+          - /thumbs/FB017-1.svg
+        pros:
+          - 自动上报错误日志
+          - 多种恢复策略
+          - 用户可反馈错误
+        cons:
+          - 实现成本高
+          - 需要后端日志系统配合
+        useCases:
+          - 核心业务模块保护
+          - 金融级系统容错
+          - 高可用要求的企业应用
+        antiCases:
+          - 简单内部工具
+          - 无需错误追踪
+        related: [FB015, FB016]
+        tech: ErrorBoundary + Sentry + Retry/Fallback 策略
+        complexity: 4
+        rating: 4
+        status: active
+        tags:
+          - 智能恢复
+          - 上报
+          - 高可用
+
+  # ===== TourGuide 引导 =====
+  - component: tour-guide
+    name: 引导
+    description: 功能引导、新手教程、操作提示
+
+    variants:
+      - id: FB018
+        name: 基础新手引导
+        tagline: 分步骤高亮页面元素，文字气泡说明功能
+        thumb:
+          - /thumbs/FB018-1.svg
+        pros:
+          - 降低学习成本
+          - 引导路径清晰
+          - 用户上手快
+        cons:
+          - 老用户可能觉得打扰
+          - 维护引导步骤有成本
+        useCases:
+          - 新用户首次登录引导
+          - 功能改版后提示
+          - SaaS 产品 onboarding
+        antiCases:
+          - 用户已是专家级
+          - 页面极简无需引导
+        related: [FB019, FB020]
+        tech: Ant Design Tour / Driver.js
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 新手
+          - 步骤
+          - onboarding
+
+      - id: FB019
+        name: 交互式功能引导
+        tagline: 用户可实际操作完成任务，边做边学
+        thumb:
+          - /thumbs/FB019-1.svg
+        pros:
+          - 学习效果更佳
+          - 用户参与感强
+          - 完成率高于纯阅读
+        cons:
+          - 实现成本高
+          - 需要维护交互脚本
+        useCases:
+          - 复杂功能首次使用
+          - 表单填写引导
+          - 工作流配置教程
+        antiCases:
+          - 简单功能展示
+          - 纯信息传达
+        related: [FB018, FB020]
+        tech: 自定义交互引导层 + 状态机
+        complexity: 4
+        rating: 4
+        status: active
+        tags:
+          - 交互
+          - 实战
+          - 任务
+
+      - id: FB020
+        name: 上下文气泡提示
+        tagline: 基于用户行为的 contextual tooltip，按需弹出操作提示
+        thumb:
+          - /thumbs/FB020-1.svg
+        pros:
+          - 不打断用户流程
+          - 按需触发精准引导
+          - 可逐步淘汰
+        cons:
+          - 触发规则设计复杂
+          - 可能遗漏关键引导
+        useCases:
+          - 功能更新提示
+          - 隐藏功能发现
+          - 操作纠错提示
+        antiCases:
+          - 全新用户完整引导
+          - 一次性教程
+        related: [FB018, FB019]
+        tech: Tooltip + Popover + 行为监听
+        complexity: 3
+        rating: 3
+        status: active
+        tags:
+          - 上下文
+          - 气泡
+          - 按需

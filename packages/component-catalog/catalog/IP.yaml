@@ -1,0 +1,1522 @@
+# catalog/IP.yaml
+# 数据录入类组件形态
+
+category: IP
+categoryName: 数据录入
+categoryNameEn: Input
+description: 表单、选择器、上传、日期、富文本等数据录入类组件
+
+components:
+  # ===== Form 基础表单 =====
+  - component: form
+    name: 基础表单
+    description: 数据录入的核心组件，B 端第二高频组件
+
+    variants:
+      - id: IP001
+        name: 基础单列表单
+        tagline: 单列布局，5 个以内字段，最朴素的表单形态
+        thumb:
+          - /thumbs/IP001-1.svg
+        pros:
+          - 用户最熟悉，学习成本为零
+          - 实现简单，维护成本低
+          - 移动端友好
+        cons:
+          - 字段多时页面过长
+          - 不支持复杂逻辑
+        useCases:
+          - 字段数 3-5 个
+          - 简单的信息录入场景
+          - 登录、注册等基础表单
+        antiCases:
+          - 字段数超过 10 个
+          - 需要分组展示
+        related: [IP002, IP003]
+        tech: Ant Design Form
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 简单
+          - 基础
+          - 移动端友好
+
+      - id: IP002
+        name: 分步表单
+        tagline: 多步骤引导式填写，降低用户认知负担
+        thumb:
+          - /thumbs/IP002-1.svg
+        pros:
+          - 引导式体验，降低认知负担
+          - 支持复杂表单的分步处理
+          - 每步可独立校验
+        cons:
+          - 步骤多时用户可能失去耐心
+          - 实现复杂度较高
+        useCases:
+          - 字段数 15 个以上
+          - 需要分组引导的场景
+          - 注册、开户等复杂流程
+        antiCases:
+          - 字段数少于 8 个
+          - 不需要引导的简单表单
+        related: [IP001, IP003]
+        tech: Ant Design Steps + Form
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 分步
+          - 引导式
+          - 复杂表单
+
+      - id: IP003
+        name: 弹窗表单
+        tagline: Modal 承载，不离开当前页面完成录入
+        thumb:
+          - /thumbs/IP003-1.svg
+        pros:
+          - 不离开当前页面，上下文不丢失
+          - 适合轻量录入
+          - 视觉聚焦
+        cons:
+          - 字段多时弹窗过大
+          - 嵌套弹窗体验差
+        useCases:
+          - 快速新建/编辑
+          - 字段数 5-10 个
+          - 列表页内嵌操作
+        antiCases:
+          - 字段数超过 15 个
+          - 需要多步骤引导
+        related: [IP001, IP002]
+        tech: Ant Design Modal + Form
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 弹窗
+          - 轻量
+          - 快速录入
+
+      - id: IP004
+        name: 抽屉表单
+        tagline: Drawer 承载，侧滑录入，上下文可见
+        thumb:
+          - /thumbs/IP004-1.svg
+        pros:
+          - 侧滑展示，背景内容可见
+          - 支持较多字段
+          - 比弹窗更灵活
+        cons:
+          - 遮挡部分内容
+          - 宽度受限
+        useCases:
+          - 字段数 8-20 个
+          - 需要参考背景数据
+          - 列表页侧边编辑
+        antiCases:
+          - 字段数超过 30 个
+          - 移动端场景
+        related: [IP003, IP005]
+        tech: Ant Design Drawer + Form
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 抽屉
+          - 侧滑
+          - 中等复杂度
+
+  # ===== Selector 选择器 =====
+  - component: selector
+    name: 选择器
+    description: 下拉选择、级联、树形选择等
+
+    variants:
+      - id: IP005
+        name: 基础下拉选择
+        tagline: 最通用的单选/多选下拉
+        thumb:
+          - /thumbs/IP005-1.svg
+        pros:
+          - 用户最熟悉
+          - 实现简单
+          - 支持搜索
+        cons:
+          - 选项多时性能差
+          - 不支持懒加载
+        useCases:
+          - 选项数 100 以内
+          - 简单枚举选择
+        antiCases:
+          - 选项数超过 1000
+          - 需要级联关系
+        related: [IP006, IP007]
+        tech: Ant Design Select
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 下拉
+          - 基础
+
+      - id: IP006
+        name: 虚拟滚动选择器
+        tagline: 万级选项流畅选择，前端零延迟
+        thumb:
+          - /thumbs/IP006-1.svg
+        pros:
+          - 支持超大量选项
+          - 滚动流畅
+          - 内存占用可控
+        cons:
+          - 实现复杂
+          - 选项少时没必要
+        useCases:
+          - 选项数 1000 以上
+          - 城市/商品等大数据集选择
+        antiCases:
+          - 选项数少于 100
+        related: [IP005, IP007]
+        tech: rc-virtual-list + Select
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 虚拟滚动
+          - 大数据集
+
+      - id: IP007
+        name: 级联选择器
+        tagline: 多级关联选择，如省市区
+        thumb:
+          - /thumbs/IP007-1.svg
+        pros:
+          - 多级关联直观
+          - 支持懒加载
+        cons:
+          - 级数多时体验差
+          - 数据结构复杂
+        useCases:
+          - 省市区选择
+          - 品类/组织架构选择
+        antiCases:
+          - 无层级关系的数据
+          - 级数超过 5 层
+        related: [IP005, IP008]
+        tech: Ant Design Cascader
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 级联
+          - 多级选择
+
+      - id: IP008
+        name: 树形选择器
+        tagline: 树形结构单选/多选，支持勾选
+        thumb:
+          - /thumbs/IP008-1.svg
+        pros:
+          - 树形结构清晰
+          - 支持父子关联
+          - 支持搜索
+        cons:
+          - 数据量大时性能差
+          - 深层级展示困难
+        useCases:
+          - 组织架构选择
+          - 权限树选择
+          - 多级分类选择
+        antiCases:
+          - 扁平数据
+          - 超过 1000 节点
+        related: [IP007, IP005]
+        tech: Ant Design TreeSelect
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 树形
+          - 组织结构
+
+  # ===== Upload 上传 =====
+  - component: upload
+    name: 文件上传
+    description: 图片、文件、批量上传等
+
+    variants:
+      - id: IP009
+        name: 基础文件上传
+        tagline: 点击上传，支持拖拽，最通用的上传形态
+        thumb:
+          - /thumbs/IP009-1.svg
+        pros:
+          - 用户最熟悉
+          - 支持拖拽
+          - 实现简单
+        cons:
+          - 批量上传体验一般
+          - 大文件上传需额外处理
+        useCases:
+          - 单文件/少量文件上传
+          - 附件上传场景
+        antiCases:
+          - 批量上传数百个文件
+          - 超大文件（GB 级）
+        related: [IP010, IP011]
+        tech: Ant Design Upload
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 拖拽
+          - 基础
+
+      - id: IP010
+        name: 图片上传（裁剪）
+        tagline: 图片选择 + 裁剪 + 预览，头像/封面场景
+        thumb:
+          - /thumbs/IP010-1.svg
+        pros:
+          - 自带裁剪能力
+          - 实时预览
+          - 适合头像场景
+        cons:
+          - 只适合图片
+          - 裁剪比例受限
+        useCases:
+          - 头像上传
+          - 封面图上传
+          - 需要固定比例裁剪
+        antiCases:
+          - 非图片文件
+          - 不需要裁剪的场景
+        related: [IP009, IP011]
+        tech: Ant Design Upload + react-cropper
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 图片
+          - 裁剪
+          - 头像
+
+      - id: IP011
+        name: 批量文件上传
+        tagline: 文件列表管理，支持进度、重试、取消
+        thumb:
+          - /thumbs/IP011-1.svg
+        pros:
+          - 支持大量文件
+          - 进度可视
+          - 支持断点续传
+        cons:
+          - 实现复杂
+          - 需要后端配合
+        useCases:
+          - 批量导入数据
+          - 大文件上传
+          - 需要进度反馈
+        antiCases:
+          - 单文件上传
+          - 简单附件场景
+        related: [IP009, IP010]
+        tech: Ant Design Upload + tus-js-client
+        complexity: 4
+        rating: 4
+        status: active
+        tags:
+          - 批量
+          - 大文件
+          - 断点续传
+
+  # ===== Date Picker 日期选择 =====
+  - component: date-picker
+    name: 日期选择器
+    description: 日期、时间、范围选择等
+
+    variants:
+      - id: IP012
+        name: 基础日期选择
+        tagline: 日历面板单选日期，B 端最常用的时间录入
+        thumb:
+          - /thumbs/IP012-1.svg
+        pros:
+          - 用户心智成熟，零学习成本
+          - 日历面板直观
+          - 支持格式自定义
+        cons:
+          - 不支持时间精度
+          - 范围选择需额外组件
+        useCases:
+          - 生日、入职日期等单日选择
+          - 报表日期筛选
+          - 合同起止日期
+        antiCases:
+          - 需要精确到时分秒
+          - 需要选择时间段
+        related: [IP013, IP014]
+        tech: Ant Design DatePicker
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 日期
+          - 基础
+          - 高频
+
+      - id: IP013
+        name: 日期范围选择
+        tagline: 起止日期联动选择，一次操作完成区间录入
+        thumb:
+          - /thumbs/IP013-1.svg
+        pros:
+          - 起止联动，避免逻辑错误
+          - 可视化区间范围
+          - 支持快捷选项（近7天/近30天）
+        cons:
+          - 跨月选择体验稍差
+          - 移动端面板偏窄
+        useCases:
+          - 报表时间范围筛选
+          - 请假/出差日期区间
+          - 活动有效期设置
+        antiCases:
+          - 只需单个日期
+          - 日期跨度超过一年
+        related: [IP012, IP014]
+        tech: Ant Design DatePicker.RangePicker
+        complexity: 2
+        rating: 5
+        status: active
+        tags:
+          - 范围
+          - 日期区间
+          - 高频
+
+      - id: IP014
+        name: 日期时间选择
+        tagline: 日期 + 时分秒一体选择，精确到秒级
+        thumb:
+          - /thumbs/IP014-1.svg
+        pros:
+          - 日期时间一体，不用拆分两个字段
+          - 支持 showTime 面板
+          - 可控制精度到秒或毫秒
+        cons:
+          - 面板操作稍复杂
+          - 用户需切换日期与时间面板
+        useCases:
+          - 会议/任务截止时间
+          - 发布定时设置
+          - 工单记录精确时间戳
+        antiCases:
+          - 只需日期不需时间
+          - 对时间精度无要求
+        related: [IP012, IP015]
+        tech: Ant Design DatePicker showTime
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 日期时间
+          - 精确时间
+
+      - id: IP015
+        name: 周/月/年选择器
+        tagline: 按周、月、年粒度选择，适配报表与财务场景
+        thumb:
+          - /thumbs/IP015-1.svg
+        pros:
+          - 适配财务/报表周期
+          - picker 属性一键切换粒度
+          - 减少用户手动计算
+        cons:
+          - 周起始日需国际化处理
+          - 自定义财年支持有限
+        useCases:
+          - 月报/周报/年报筛选
+          - 财务账期选择
+          - 绩效考核周期
+        antiCases:
+          - 需要精确到日
+          - 非周期性时间选择
+        related: [IP012, IP016]
+        tech: Ant Design DatePicker picker=week/month/year
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 周月年
+          - 报表周期
+
+      - id: IP016
+        name: 时间选择器
+        tagline: 纯时分秒选择，配合日期组件使用
+        thumb:
+          - /thumbs/IP016-1.svg
+        pros:
+          - 滚轮式选择，操作高效
+          - 可限定可选时段
+          - 支持步长配置
+        cons:
+          - 单独使用场景有限
+          - 时间跨度大时滚动费力
+        useCases:
+          - 每日打卡时间设置
+          - 营业时间段选择
+          - 定时任务执行时间
+        antiCases:
+          - 需要日期+时间一体
+          - 不需要精确时间的场景
+        related: [IP014, IP012]
+        tech: Ant Design TimePicker
+        complexity: 1
+        rating: 4
+        status: active
+        tags:
+          - 时间
+          - 时分秒
+
+  # ===== Rich Editor 富文本编辑器 =====
+  - component: rich-editor
+    name: 富文本编辑器
+    description: 图文混排、内容编辑等
+
+    variants:
+      - id: IP017
+        name: 轻量富文本
+        tagline: 基础加粗/斜体/列表，满足公告与通知编辑
+        thumb:
+          - /thumbs/IP017-1.svg
+        pros:
+          - 体积小，加载快
+          - API 简洁，集成成本低
+          - 输出 HTML/Markdown 可切换
+        cons:
+          - 不支持表格/图片拖拽
+          - 插件扩展有限
+        useCases:
+          - 系统公告编辑
+          - 工单描述录入
+          - 简单通知内容
+        antiCases:
+          - 需要复杂排版
+          - 需要嵌入视频/表格
+        related: [IP018, IP019]
+        tech: TipTap StarterKit
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 轻量
+          - 基础编辑
+
+      - id: IP018
+        name: 全功能富文本
+        tagline: 表格/图片/视频/代码块全支持，类 Google Docs 体验
+        thumb:
+          - /thumbs/IP018-1.svg
+        pros:
+          - 功能全面，覆盖所有排版需求
+          - 支持协同编辑扩展
+          - 插件生态丰富
+        cons:
+          - 包体积较大
+          - 定制成本高于轻量方案
+          - 移动端体验受限
+        useCases:
+          - 知识库文章编辑
+          - 帮助中心内容管理
+          - 营销页面搭建
+        antiCases:
+          - 只需要简单文本输入
+          - 对加载性能敏感
+        related: [IP017, IP019]
+        tech: TipTap + ProseMirror Extensions
+        complexity: 4
+        rating: 5
+        status: active
+        tags:
+          - 全功能
+          - 知识库
+          - 内容管理
+
+      - id: IP019
+        name: Markdown 编辑器
+        tagline: 左侧 Markdown 源码 + 右侧实时预览，开发者友好
+        thumb:
+          - /thumbs/IP019-1.svg
+        pros:
+          - 开发者零学习成本
+          - 输出纯 Markdown，版本可控
+          - 支持代码高亮与数学公式
+        cons:
+          - 非技术用户上手难
+          - 表格编辑不够直观
+        useCases:
+          - 技术文档编写
+          - API 文档维护
+          - 研发 Wiki 编辑
+        antiCases:
+          - 面向非技术用户
+          - 需要拖拽排版
+        related: [IP017, IP020]
+        tech: ByteMD / Milkdown
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - Markdown
+          - 开发者
+          - 技术文档
+
+      - id: IP020
+        name: 邮件模板编辑器
+        tagline: 变量插值 + 条件区块，专为邮件/短信模板设计
+        thumb:
+          - /thumbs/IP020-1.svg
+        pros:
+          - 原生支持模板变量语法高亮
+          - 预览时自动替换样例数据
+          - 条件块/循环块可视化
+        cons:
+          - 通用性差，仅限模板场景
+          - 需与后端模板引擎对齐语法
+        useCases:
+          - 营销邮件模板编辑
+          - 短信通知模板管理
+          - 合同模板变量配置
+        antiCases:
+          - 通用文档编辑
+          - 不需要变量的纯文本
+        related: [IP017, IP021]
+        tech: CodeMirror + 自定义模板插件
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 模板
+          - 邮件
+          - 变量
+
+      - id: IP021
+        name: 协同编辑器
+        tagline: 多人实时协同编辑，光标可见，冲突自动合并
+        thumb:
+          - /thumbs/IP021-1.svg
+        pros:
+          - 多人同时编辑，效率倍增
+          - CRDT 保证最终一致性
+          - 支持评论与批注
+        cons:
+          - 需要 WebSocket 服务端支持
+          - 离线编辑需额外方案
+          - 实现与运维成本高
+        useCases:
+          - 团队 Wiki 协同编写
+          - 在线方案联合评审
+          - 需求文档多人共创
+        antiCases:
+          - 单人编辑场景
+          - 无实时协作需求
+        related: [IP018, IP019]
+        tech: TipTap + Yjs / Hocuspocus
+        complexity: 5
+        rating: 5
+        status: active
+        tags:
+          - 协同
+          - 实时
+          - 多人编辑
+
+  # ===== Color Picker 颜色选择器 =====
+  - component: color-picker
+    name: 颜色选择器
+    description: 颜色选取、色板配置等
+
+    variants:
+      - id: IP022
+        name: 基础颜色选择
+        tagline: HEX/RGB/HSL 输入 + 色盘选取，通用颜色录入
+        thumb:
+          - /thumbs/IP022-1.svg
+        pros:
+          - 支持多种颜色格式输入
+          - 色盘 + 数值双模式
+          - 支持透明度调节
+        cons:
+          - 色准依赖显示器校色
+          - 无法感知品牌规范
+        useCases:
+          - 主题色配置
+          - 图表配色选择
+          - 自定义品牌色录入
+        antiCases:
+          - 只需预设色板选择
+          - 不涉及颜色自定义
+        related: [IP023, IP024]
+        tech: Ant Design ColorPicker
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 颜色
+          - 基础
+          - 主题配置
+
+      - id: IP023
+        name: 预设色板选择
+        tagline: 从 Design Token 预设色板中选取，保证设计规范一致
+        thumb:
+          - /thumbs/IP023-1.svg
+        pros:
+          - 与设计系统色板同步
+          - 杜绝野鸡色值
+          - 选择快速，无需调色
+        cons:
+          - 无法选择预设外颜色
+          - 色板更新需前后端同步
+        useCases:
+          - 标签颜色选择
+          - 图表系列配色
+          - 状态标识颜色
+        antiCases:
+          - 需要自由调色
+          - 无设计规范约束
+        related: [IP022, IP024]
+        tech: 自定义 Swatch 组件 + Design Tokens
+        complexity: 1
+        rating: 4
+        status: active
+        tags:
+          - 色板
+          - 设计规范
+
+      - id: IP024
+        name: 渐变编辑器
+        tagline: 线性/径向渐变可视化编辑，支持多色标与角度
+        thumb:
+          - /thumbs/IP024-1.svg
+        pros:
+          - 可视化拖拽色标
+          - 支持线性/径向/锥形渐变
+          - 输出 CSS gradient 代码
+        cons:
+          - 使用场景相对垂直
+          - 兼容性需关注目标浏览器
+        useCases:
+          - 背景渐变配置
+          - 按钮/卡片渐变样式
+          - 数据可视化渐变配色
+        antiCases:
+          - 纯色选择场景
+          - 不需要 CSS 输出
+        related: [IP022, IP023]
+        tech: react-gradient-picker / 自研
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 渐变
+          - CSS
+          - 可视化
+
+  # ===== Number Input 数字输入 =====
+  - component: number-input
+    name: 数字输入
+    description: 数值录入、步进器、金额输入等
+
+    variants:
+      - id: IP025
+        name: 基础数字输入
+        tagline: 带步进器的数值输入框，支持范围约束
+        thumb:
+          - /thumbs/IP025-1.svg
+        pros:
+          - 内置 +/- 步进器
+          - 支持 min/max/step 约束
+          - 键盘上下键可调节
+        cons:
+          - 大数值步进效率低
+          - 不支持千分位展示
+        useCases:
+          - 数量录入（库存、订单数）
+          - 百分比配置（0-100）
+          - 评分/等级录入
+        antiCases:
+          - 需要输入非数字字符
+          - 超大数值（百万级以上）
+        related: [IP026, IP027]
+        tech: Ant Design InputNumber
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 数字
+          - 基础
+          - 步进器
+
+      - id: IP026
+        name: 金额输入
+        tagline: 千分位格式化 + 货币符号，专为金额录入设计
+        thumb:
+          - /thumbs/IP026-1.svg
+        pros:
+          - 自动千分位格式化
+          - 支持多币种符号前缀
+          - 精度可控（小数位数）
+        cons:
+          - 需处理精度丢失问题
+          - 不同地区格式差异大
+        useCases:
+          - 合同金额录入
+          - 报销金额填写
+          - 商品价格设置
+        antiCases:
+          - 非金额类数值
+          - 不需要格式化的纯计算数值
+        related: [IP025, IP028]
+        tech: Ant Design InputNumber + accounting.js
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 金额
+          - 格式化
+          - 货币
+
+      - id: IP027
+        name: 滑块数字输入
+        tagline: 滑块 + 数值框联动，直观调节数值
+        thumb:
+          - /thumbs/IP027-1.svg
+        pros:
+          - 拖拽调节直观高效
+          - 数值变化实时可视
+          - 适合范围受限的参数
+        cons:
+          - 精确输入不如数字框
+          - 大范围取值精度受限
+        useCases:
+          - 超时时间设置（秒）
+          - 折扣比例调节
+          - 音量/亮度等连续参数
+        antiCases:
+          - 需要精确到个位的大数值
+          - 非连续型数值
+        related: [IP025, IP033]
+        tech: Ant Design Slider + InputNumber
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 滑块
+          - 联动
+          - 参数调节
+
+      - id: IP028
+        name: 百分比输入
+        tagline: 0-100 百分比专用，自动在小数与百分比间转换
+        thumb:
+          - /thumbs/IP028-1.svg
+        pros:
+          - 内部存小数，展示为百分比
+          - 自动限制 0-100 范围
+          - 支持步进 0.1% 精度
+        cons:
+          - 场景过于垂直
+          - 超过 100% 的占比不支持
+        useCases:
+          - 税率/折扣率设置
+          - 完成进度录入
+          - 概率/权重配置
+        antiCases:
+          - 百分比可超过 100%
+          - 非百分比类数值
+        related: [IP025, IP026]
+        tech: Ant Design InputNumber + 自定义 formatter
+        complexity: 1
+        rating: 4
+        status: active
+        tags:
+          - 百分比
+          - 占比
+          - 格式化
+
+  # ===== Switch Toggle 开关切换 =====
+  - component: switch-toggle
+    name: 开关切换
+    description: 布尔切换、状态开关等
+
+    variants:
+      - id: IP029
+        name: 基础开关
+        tagline: 二态切换，最直观的布尔值录入
+        thumb:
+          - /thumbs/IP029-1.svg
+        pros:
+          - 操作一步到位
+          - 状态一目了然
+          - 移动端友好
+        cons:
+          - 只支持二态
+          - 无中间状态表达
+        useCases:
+          - 功能启用/禁用
+          - 通知开关
+          - 可见性切换
+        antiCases:
+          - 三态及以上选择
+          - 需要文字说明的复杂状态
+        related: [IP030, IP031]
+        tech: Ant Design Switch
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 开关
+          - 二态
+          - 基础
+
+      - id: IP030
+        name: 分段切换器
+        tagline: 2-5 个互斥选项的水平排列，比 Radio 更紧凑
+        thumb:
+          - /thumbs/IP030-1.svg
+        pros:
+          - 所有选项一目了然
+          - 切换无需展开下拉
+          - 紧凑省空间
+        cons:
+          - 选项多时横向溢出
+          - 文案长度受限
+        useCases:
+          - 视图切换（列表/卡片/表格）
+          - 状态筛选（全部/待处理/已完成）
+          - 粒度切换（日/周/月）
+        antiCases:
+          - 选项超过 5 个
+          - 选项文案很长
+        related: [IP029, IP032]
+        tech: Ant Design Segmented
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 分段
+          - 互斥
+          - 紧凑
+
+      - id: IP031
+        name: 三态开关
+        tagline: 开/关/自动三态，适配需要默认跟随系统的场景
+        thumb:
+          - /thumbs/IP031-1.svg
+        pros:
+          - 支持"跟随系统"语义
+          - 减少用户决策成本
+          - 比两个开关更清晰
+        cons:
+          - 实现比二态复杂
+          - 用户需理解三态含义
+        useCases:
+          - 深色模式（开/关/跟随系统）
+          - 通知策略（开/关/免打扰时段）
+          - 数据同步（手动/自动/暂停）
+        antiCases:
+          - 只需二态切换
+          - 选项超过三个
+        related: [IP029, IP030]
+        tech: Ant Design Switch + Segmented 组合
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 三态
+          - 跟随系统
+
+      - id: IP032
+        name: 图标开关组
+        tagline: 图标 + 文字的分段切换，视觉识别度更高
+        thumb:
+          - /thumbs/IP032-1.svg
+        pros:
+          - 图标辅助识别，扫描效率高
+          - 比纯文字分段更直观
+          - 节省横向空间
+        cons:
+          - 需要为每个选项准备图标
+          - 图标语义需统一设计
+        useCases:
+          - 布局切换（左/中/右对齐）
+          - 视图模式（列表/网格/看板）
+          - 设备切换（PC/平板/手机预览）
+        antiCases:
+          - 无合适图标的抽象选项
+          - 选项超过 5 个
+        related: [IP030, IP029]
+        tech: Ant Design Segmented + 自定义图标渲染
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 图标
+          - 分段
+          - 视觉
+
+  # ===== Slider 滑块输入 =====
+  - component: slider-input
+    name: 滑块输入
+    description: 范围选择、滑块调节等
+
+    variants:
+      - id: IP033
+        name: 基础滑块
+        tagline: 单滑块在连续轨道上取值，适合参数调节
+        thumb:
+          - /thumbs/IP033-1.svg
+        pros:
+          - 拖拽操作直觉化
+          - 支持刻度标记
+          - 可配合 Tooltip 实时显示值
+        cons:
+          - 精确取值困难
+          - 大范围精度不足
+        useCases:
+          - 音量/亮度调节
+          - 字体大小设置
+          - 超时阈值配置
+        antiCases:
+          - 需要精确数值输入
+          - 离散枚举值
+        related: [IP034, IP035]
+        tech: Ant Design Slider
+        complexity: 1
+        rating: 4
+        status: active
+        tags:
+          - 滑块
+          - 连续
+          - 参数
+
+      - id: IP034
+        name: 范围滑块
+        tagline: 双滑块选取区间，适合价格/日期范围筛选
+        thumb:
+          - /thumbs/IP034-1.svg
+        pros:
+          - 区间选择一步完成
+          - 两端互斥约束
+          - 视觉展示选中范围
+        cons:
+          - 移动端拖拽易冲突
+          - 两端接近时操作困难
+        useCases:
+          - 价格区间筛选
+          - 年龄范围设置
+          - 评分范围过滤
+        antiCases:
+          - 只需单值选择
+          - 选项间距小于步长
+        related: [IP033, IP036]
+        tech: Ant Design Slider range
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 范围
+          - 双滑块
+          - 筛选
+
+      - id: IP035
+        name: 阶梯滑块
+        tagline: 离散档位滑块，每档有明确语义
+        thumb:
+          - /thumbs/IP035-1.svg
+        pros:
+          - 档位语义清晰
+          - 防止无效中间值
+          - 可配合 marks 展示标签
+        cons:
+          - 档位设计需领域知识
+          - 不适合连续量
+        useCases:
+          - 优先级选择（低/中/高/紧急）
+          - 风险等级评估
+          - 满意度评分（1-5星）
+        antiCases:
+          - 连续数值调节
+          - 档位超过 10 个
+        related: [IP033, IP034]
+        tech: Ant Design Slider + marks + step
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 阶梯
+          - 离散
+          - 评级
+
+      - id: IP036
+        name: 垂直滑块
+        tagline: 纵向轨道滑块，适合侧边栏参数面板
+        thumb:
+          - /thumbs/IP036-1.svg
+        pros:
+          - 纵向布局节省横向空间
+          - 适合侧边工具栏
+          - 多个垂直滑块并排对比直观
+        cons:
+          - 不符合多数用户横向习惯
+          - 高度受容器限制
+        useCases:
+          - 音频均衡器调节
+          - 侧边栏参数面板
+          - 图表 Y 轴范围控制
+        antiCases:
+          - 主内容区表单
+          - 移动端纵向空间紧张
+        related: [IP033, IP034]
+        tech: Ant Design Slider vertical
+        complexity: 1
+        rating: 3
+        status: active
+        tags:
+          - 垂直
+          - 侧边栏
+          - 均衡器
+
+  # ===== Address Input 地址输入 =====
+  - component: address-input
+    name: 地址输入
+    description: 地址录入、地图选点等
+
+    variants:
+      - id: IP037
+        name: 省市区级联 + 详细地址
+        tagline: 行政区划级联 + 文本框录入详细地址，国内最通用方案
+        thumb:
+          - /thumbs/IP037-1.svg
+        pros:
+          - 行政区划数据标准化
+          - 用户操作路径清晰
+          - 数据结构化便于存储
+        cons:
+          - 依赖行政区划数据更新
+          - 海外地址不适用
+        useCases:
+          - 电商收货地址
+          - 企业注册地录入
+          - 物流配送地址
+        antiCases:
+          - 海外地址录入
+          - 无需结构化存储
+        related: [IP038, IP039]
+        tech: Ant Design Cascader + Input.TextArea
+        complexity: 2
+        rating: 5
+        status: active
+        tags:
+          - 省市区
+          - 级联
+          - 国内
+
+      - id: IP038
+        name: 地图选点
+        tagline: 地图上点击/搜索定位，自动回填经纬度与地址
+        thumb:
+          - /thumbs/IP038-1.svg
+        pros:
+          - 定位精准，经纬度可直接使用
+          - 可视化确认位置
+          - 支持搜索 POI
+        cons:
+          - 依赖地图 API 及 Key
+          - 加载较慢
+          - 有调用费用
+        useCases:
+          - 门店/仓库定位
+          - 外勤打卡位置
+          - 服务覆盖范围标注
+        antiCases:
+          - 无地图需求
+          - 预算敏感项目
+        related: [IP037, IP039]
+        tech: 高德/百度地图 JS API + Geocoder
+        complexity: 4
+        rating: 4
+        status: active
+        tags:
+          - 地图
+          - 定位
+          - 经纬度
+
+      - id: IP039
+        name: 智能地址解析
+        tagline: 粘贴一段文字自动拆分为省市区 + 详细地址 + 联系人
+        thumb:
+          - /thumbs/IP039-1.svg
+        pros:
+          - 用户只需粘贴一次
+          - NLP 自动拆分，效率极高
+          - 减少手动填写错误
+        cons:
+          - 需要 NLP 服务或本地模型
+          - 非标准地址识别率下降
+        useCases:
+          - 电商地址快速录入
+          - 从微信/短信粘贴地址
+          - 批量导入地址解析
+        antiCases:
+          - 地址格式极不规范
+          - 无 NLP 能力可用
+        related: [IP037, IP040]
+        tech: 自研 NLP 地址解析 / 第三方 API
+        complexity: 4
+        rating: 5
+        status: active
+        tags:
+          - 智能
+          - NLP
+          - 地址解析
+
+      - id: IP040
+        name: 国际化地址输入
+        tagline: 支持多国家/地区格式的地址录入，字段随国家动态变化
+        thumb:
+          - /thumbs/IP040-1.svg
+        pros:
+          - 适配全球地址格式差异
+          - 字段名/顺序随国家切换
+          - 支持地址自动补全
+        cons:
+          - 实现复杂度极高
+          - 各国地址规范需持续维护
+        useCases:
+          - 跨境电商收货地址
+          - 国际物流单据
+          - 全球客户信息管理
+        antiCases:
+          - 仅国内业务
+          - 地址格式单一的场景
+        related: [IP037, IP038]
+        tech: Google Places API + 自定义国际化表单
+        complexity: 5
+        rating: 4
+        status: active
+        tags:
+          - 国际化
+          - 跨境
+          - 多格式
+
+  # ===== Code Editor 代码编辑器 =====
+  - component: code-editor
+    name: 代码编辑器
+    description: 代码录入、SQL编辑、表达式编辑等
+
+    variants:
+      - id: IP041
+        name: 基础代码编辑器
+        tagline: 语法高亮 + 行号 + 自动补全，最通用的代码录入
+        thumb:
+          - /thumbs/IP041-1.svg
+        pros:
+          - 支持 100+ 语言语法高亮
+          - 行号/折叠/搜索齐全
+          - 主题可切换（亮/暗）
+        cons:
+          - 无智能提示能力
+          - 大文件性能受限
+        useCases:
+          - JSON/YAML 配置编辑
+          - 自定义表达式录入
+          - Webhook payload 查看
+        antiCases:
+          - 纯文本输入场景
+          - 不需要语法高亮
+        related: [IP042, IP043]
+        tech: Monaco Editor
+        complexity: 2
+        rating: 5
+        status: active
+        tags:
+          - 代码
+          - 语法高亮
+          - 基础
+
+      - id: IP042
+        name: SQL 编辑器
+        tagline: SQL 语法高亮 + 表/字段自动补全 + 格式化
+        thumb:
+          - /thumbs/IP042-1.svg
+        pros:
+          - 表名/字段名智能补全
+          - SQL 格式化与校验
+          - 支持多数据库方言
+        cons:
+          - 需后端提供 schema 元数据
+          - 复杂子查询补全有限
+        useCases:
+          - 报表查询编写
+          - 数据源 SQL 配置
+          - ETL 规则编辑
+        antiCases:
+          - 非 SQL 类查询
+          - 无需补全的简单文本
+        related: [IP041, IP044]
+        tech: Monaco + SQL 语言服务 / CodeMirror + lezer-sql
+        complexity: 4
+        rating: 4
+        status: active
+        tags:
+          - SQL
+          - 补全
+          - 数据查询
+
+      - id: IP043
+        name: JSON 编辑器
+        tagline: JSON 树形 + 文本双模式编辑，带 Schema 校验
+        thumb:
+          - /thumbs/IP043-1.svg
+        pros:
+          - 树形/文本双视图切换
+          - JSON Schema 实时校验
+          - 路径复制与定位
+        cons:
+          - 超大 JSON 性能差
+          - 非标准 JSON 兼容性差
+        useCases:
+          - API 请求/响应编辑
+          - 规则引擎配置
+          - 数据映射与转换
+        antiCases:
+          - 非 JSON 格式
+          - 文件体积超过 10MB
+        related: [IP041, IP044]
+        tech: vanila-json-editor / Monaco + ajv
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - JSON
+          - Schema
+          - 树形
+
+      - id: IP044
+        name: 低代码表达式编辑器
+        tagline: 可视化拖拽构建表达式，降低非开发人员使用门槛
+        thumb:
+          - /thumbs/IP044-1.svg
+        pros:
+          - 非开发人员也能构建规则
+          - 可视化降低语法错误
+          - 支持函数/变量/运算符拖拽
+        cons:
+          - 复杂表达式可视化困难
+          - 需定义 DSL 与函数库
+        useCases:
+          - 审批规则配置
+          - 数据过滤条件构建
+          - 自动化流程表达式
+        antiCases:
+          - 开发者直接写代码
+          - 极简单的条件判断
+        related: [IP041, IP042]
+        tech: 自研 DSL 编辑器 / react-query-builder
+        complexity: 5
+        rating: 4
+        status: active
+        tags:
+          - 低代码
+          - 表达式
+          - 可视化
+
+  # ===== Tag Input 标签输入 =====
+  - component: tag-input
+    name: 标签输入
+    description: 标签录入、关键词管理等
+
+    variants:
+      - id: IP045
+        name: 自由标签输入
+        tagline: 输入后回车生成标签，支持自由创建与删除
+        thumb:
+          - /thumbs/IP045-1.svg
+        pros:
+          - 操作直觉化
+          - 无预设限制，自由度高
+          - 支持逗号/回车/空格分隔
+        cons:
+          - 无法控制标签质量
+          - 易产生重复/近义标签
+        useCases:
+          - 文章关键词录入
+          - 自由分类标签
+          - 搜索词收集
+        antiCases:
+          - 标签需要规范化
+          - 必须从预设中选择
+        related: [IP046, IP047]
+        tech: Ant Design Select mode=tags
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 标签
+          - 自由
+          - 关键词
+
+      - id: IP046
+        name: 预设标签选择
+        tagline: 从预设标签库中多选，支持搜索与新建
+        thumb:
+          - /thumbs/IP046-1.svg
+        pros:
+          - 标签标准化，数据一致
+          - 搜索快速定位
+          - 允许临时新建标签
+        cons:
+          - 标签库需维护
+          - 标签量大时搜索变慢
+        useCases:
+          - 工单标签分类
+          - 客户属性标记
+          - 内容分类管理
+        antiCases:
+          - 完全自由不规范的标签
+          - 无需标准化的场景
+        related: [IP045, IP047]
+        tech: Ant Design Select mode=tags + 远程数据
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 预设
+          - 标准化
+          - 多选
+
+      - id: IP047
+        name: 彩色标签组
+        tagline: 标签带颜色分类，视觉区分度高，支持拖拽排序
+        thumb:
+          - /thumbs/IP047-1.svg
+        pros:
+          - 颜色分类一目了然
+          - 支持拖拽排序
+          - 可折叠/展开管理
+        cons:
+          - 颜色分配需规则或手动
+          - 标签过多时颜色不够用
+        useCases:
+          - 看板任务标签
+          - 项目优先级标记
+          - 团队/角色可视化
+        antiCases:
+          - 纯文本标签够用
+          - 不需要视觉区分
+        related: [IP045, IP046]
+        tech: Ant Design Tag + DnD Kit
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 彩色
+          - 拖拽
+          - 可视化
+
+  # ===== Signature Pad 签名板 =====
+  - component: signature-pad
+    name: 签名板
+    description: 手写签名、涂鸦采集等
+
+    variants:
+      - id: IP048
+        name: 基础签名板
+        tagline: Canvas 手写签名，输出 PNG/SVG，合同审批标配
+        thumb:
+          - /thumbs/IP048-1.svg
+        pros:
+          - 移动端/触屏原生体验
+          - 输出 PNG 与 SVG 双格式
+          - 支持清除/重签
+        cons:
+          - 依赖触屏或鼠标精度
+          - PC 端鼠标签名体验差
+        useCases:
+          - 合同电子签名
+          - 审批流程确认
+          - 签收单电子化
+        antiCases:
+          - 无签名需求的表单
+          - 需要法律级数字证书
+        related: [IP049, IP050]
+        tech: signature_pad
+        complexity: 2
+        rating: 5
+        status: active
+        tags:
+          - 签名
+          - Canvas
+          - 合同
+
+      - id: IP049
+        name: 批注签名板
+        tagline: 在文档/图片上签名批注，支持多色笔与橡皮擦
+        thumb:
+          - /thumbs/IP049-1.svg
+        pros:
+          - 可在底图上精准批注
+          - 多色笔 + 橡皮擦 + 文字
+          - 批注与底图分层输出
+        cons:
+          - 实现复杂度高于纯签名
+          - 大尺寸底图性能需优化
+        useCases:
+          - 合同条款批注
+          - 设计稿审阅标注
+          - 质检图片标记
+        antiCases:
+          - 空白区域纯签名
+          - 不涉及底图的场景
+        related: [IP048, IP050]
+        tech: Fabric.js / Konva.js + 自定义工具栏
+        complexity: 4
+        rating: 4
+        status: active
+        tags:
+          - 批注
+          - 底图
+          - 审阅
+
+      - id: IP050
+        name: 移动端全屏签名
+        tagline: 横屏全屏签名，适配手机/平板触屏签署
+        thumb:
+          - /thumbs/IP050-1.svg
+        pros:
+          - 全屏最大化签名区域
+          - 横屏模式书写自然
+          - 笔触压感可选支持
+        cons:
+          - 需锁定屏幕方向
+          - 仅移动端有意义
+        useCases:
+          - 快递员手持签收
+          - 银行柜台平板签名
+          - 现场验收签字
+        antiCases:
+          - PC 端场景
+          - 签名区域空间充足时
+        related: [IP048, IP049]
+        tech: signature_pad + 横屏 CSS + 设备方向 API
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 移动端
+          - 全屏
+          - 签收

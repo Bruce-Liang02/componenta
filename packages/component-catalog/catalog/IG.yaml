@@ -1,0 +1,791 @@
+# catalog/IG.yaml
+# 集成类组件形态
+
+category: IG
+categoryName: 集成类
+categoryNameEn: Integration
+description: 文件预览、导入导出、二维码、打印、剪贴板、地图、支付、短信、水印等第三方集成组件
+
+components:
+  # ===== FilePreview 文件预览 =====
+  - component: file-preview
+    name: 文件预览
+    description: 在线预览各类文件
+
+    variants:
+      - id: IG001
+        name: 图片预览
+        tagline: 图片缩放、旋转、下载
+        thumb:
+          - /thumbs/IG001-1.svg
+        pros:
+          - 基础能力
+          - 实现成熟
+          - 用户最熟悉
+        cons:
+          - 只支持图片
+          - 大图片加载慢
+        useCases:
+          - 图片查看
+          - 头像放大查看
+        antiCases:
+          - 非图片文件
+          - 需要编辑功能
+        related: [IG002, IG003]
+        tech: Ant Design Image (preview)
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 图片
+          - 预览
+
+      - id: IG002
+        name: PDF 预览
+        tagline: 浏览器内 PDF 查看，支持翻页缩放
+        thumb:
+          - /thumbs/IG002-1.svg
+        pros:
+          - 在线查看 PDF
+          - 不需要下载
+          - 支持翻页缩放
+        cons:
+          - 大 PDF 加载慢
+          - 需要 PDF.js
+          - 移动端体验差
+        useCases:
+          - 合同/报告预览
+          - 文档在线查看
+        antiCases:
+          - 超大 PDF（100MB+）
+          - 需要编辑功能
+        related: [IG001, IG003]
+        tech: PDF.js / react-pdf
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - PDF
+          - 在线预览
+
+      - id: IG003
+        name: Office 文档预览
+        tagline: Word/Excel/PPT 在线预览
+        thumb:
+          - /thumbs/IG003-1.svg
+        pros:
+          - 支持多种格式
+          - 不需要安装 Office
+          - 可对接在线服务
+        cons:
+          - 需要后端转换服务
+          - 大文件加载慢
+          - 格式可能丢失
+        useCases:
+          - 办公文档在线查看
+          - 附件预览
+          - 知识管理
+        antiCases:
+          - 需要编辑功能
+          - 高保密文档
+        related: [IG001, IG002]
+        tech: OnlyOffice / 微软 Office Online / kkFileView
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - Office
+          - Word
+          - Excel
+
+  # ===== ImportExport 导入导出 =====
+  - component: import-export
+    name: 导入导出
+    description: 数据的批量导入与导出
+
+    variants:
+      - id: IG004
+        name: Excel 导出
+        tagline: 表格数据导出为 Excel 文件
+        thumb:
+          - /thumbs/IG004-1.svg
+        pros:
+          - 最通用的导出格式
+          - 用户最熟悉
+          - 实现成熟
+        cons:
+          - 大数据量慢
+          - 格式固定
+          - 样式受限
+        useCases:
+          - 列表数据导出
+          - 报表导出
+          - 数据备份
+        antiCases:
+          - 超大数据量（10万+）
+          - 需要复杂格式
+        related: [IG005, IG006]
+        tech: xlsx / exceljs
+        complexity: 2
+        rating: 5
+        status: active
+        tags:
+          - Excel
+          - 导出
+          - 报表
+
+      - id: IG005
+        name: Excel 导入
+        tagline: 从 Excel 文件批量导入数据
+        thumb:
+          - /thumbs/IG005-1.svg
+        pros:
+          - 批量数据录入
+          - 用户最熟悉的方式
+          - 支持模板
+        cons:
+          - 数据校验复杂
+          - 错误处理复杂
+          - 大数据量慢
+        useCases:
+          - 批量数据录入
+          - 数据迁移
+          - 初始数据导入
+        antiCases:
+          - 实时数据录入
+          - 超大数据量
+        related: [IG004, IG006]
+        tech: xlsx + 自定义校验
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - Excel
+          - 导入
+          - 批量
+
+      - id: IG006
+        name: CSV 导入导出
+        tagline: 轻量级的 CSV 格式导入导出
+        thumb:
+          - /thumbs/IG006-1.svg
+        pros:
+          - 轻量
+          - 支持大数据量
+          - 跨平台兼容
+        cons:
+          - 不支持多 Sheet
+          - 无样式
+          - 中文乱码问题
+        useCases:
+          - 大数据量导出
+          - 系统间数据交换
+          - 简单数据备份
+        antiCases:
+          - 需要多 Sheet
+          - 需要样式
+        related: [IG004, IG005]
+        tech: papaparse
+        complexity: 1
+        rating: 3
+        status: active
+        tags:
+          - CSV
+          - 轻量
+          - 大数据
+
+  # ===== QRCode 二维码 =====
+  - component: qrcode
+    name: 二维码
+    description: 二维码生成与扫码
+
+    variants:
+      - id: IG007
+        name: 基础二维码生成
+        tagline: 文本/链接生成二维码图片
+        thumb:
+          - /thumbs/IG007-1.svg
+        pros:
+          - 实现简单
+          - 可自定义样式
+          - 支持 Logo
+        cons:
+          - 只生成不扫码
+          - 需要额外扫码库
+        useCases:
+          - 分享链接
+          - 支付二维码
+          - 名片二维码
+        antiCases:
+          - 需要扫码功能
+          - 动态二维码
+        related: [IG008]
+        tech: qrcode.react / qrcode
+        complexity: 1
+        rating: 4
+        status: active
+        tags:
+          - 二维码
+          - 生成
+
+      - id: IG008
+        name: 扫码识别
+        tagline: 调用摄像头扫码识别
+        thumb:
+          - /thumbs/IG008-1.svg
+        pros:
+          - 移动端友好
+          - 支持多种码
+          - 实时识别
+        cons:
+          - 需要摄像头权限
+          - 弱光环境差
+          - PC 端体验一般
+        useCases:
+          - 扫码登录
+          - 扫码签到
+          - 商品扫码
+        antiCases:
+          - 无摄像头
+          - PC 端为主
+        related: [IG007]
+        tech: html5-qrcode / quagga2
+        complexity: 3
+        rating: 3
+        status: active
+        tags:
+          - 扫码
+          - 摄像头
+          - 移动端
+
+  # ===== Print 打印 =====
+  - component: print
+    name: 打印
+    description: 页面内容打印
+
+    variants:
+      - id: IG009
+        name: 基础打印
+        tagline: 调用浏览器打印功能
+        thumb:
+          - /thumbs/IG009-1.svg
+        pros:
+          - 实现简单
+          - 无额外依赖
+          - 用户熟悉
+        cons:
+          - 样式控制有限
+          - 分页不可控
+          - 各浏览器表现不一
+        useCases:
+          - 简单内容打印
+          - 内部报表
+        antiCases:
+          - 需要精确排版
+          - 批量打印
+        related: [IG010]
+        tech: window.print() + CSS @media print
+        complexity: 1
+        rating: 3
+        status: active
+        tags:
+          - 打印
+          - 基础
+
+      - id: IG010
+        name: 精确打印
+        tagline: 自定义打印模板，精确控制排版
+        thumb:
+          - /thumbs/IG010-1.svg
+        pros:
+          - 精确控制排版
+          - 支持分页
+          - 可预览
+        cons:
+          - 实现复杂
+          - 需要打印模板
+        useCases:
+          - 发票打印
+          - 合同打印
+          - 报表打印
+        antiCases:
+          - 简单内容
+          - 不需要精确排版
+        related: [IG009]
+        tech: react-to-print / Lodop
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 精确
+          - 模板
+          - 排版
+
+  # ===== Clipboard 剪贴板 =====
+  - component: clipboard
+    name: 剪贴板
+    description: 复制文本/图片到剪贴板、读取剪贴板内容
+
+    variants:
+      - id: IG011
+        name: 文本复制
+        tagline: 一键复制文本到剪贴板，复制成功反馈
+        thumb:
+          - /thumbs/IG011-1.svg
+        pros:
+          - 实现简单
+          - 用户体验好
+          - 兼容主流浏览器
+        cons:
+          - 需要 HTTPS 环境
+          - 旧浏览器兼容性差
+        useCases:
+          - 订单号/邀请码复制
+          - API Key 复制
+          - 分享内容复制
+        antiCases:
+          - 非 HTTPS 环境
+          - 需要读取剪贴板
+        related: [IG012, IG013]
+        tech: navigator.clipboard.writeText / copy-to-clipboard
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 复制
+          - 文本
+          - 基础
+
+      - id: IG012
+        name: 富文本/图片复制
+        tagline: 支持复制 HTML 富文本或图片数据到剪贴板
+        thumb:
+          - /thumbs/IG012-1.svg
+        pros:
+          - 支持多种数据格式
+          - 可复制图表截图
+          - 粘贴到 Office 保留格式
+        cons:
+          - 浏览器兼容性差
+          - 大图片性能问题
+        useCases:
+          - 报表截图复制
+          - 图表粘贴到文档
+          - 邮件内容复制
+        antiCases:
+          - 纯文本场景
+          - 安全敏感环境
+        related: [IG011, IG013]
+        tech: Clipboard API (write) + Blob + html2canvas
+        complexity: 3
+        rating: 3
+        status: active
+        tags:
+          - 富文本
+          - 图片
+          - 截图
+
+      - id: IG013
+        name: 剪贴板监听与粘贴
+        tagline: 监听粘贴事件，读取剪贴板内容进行解析
+        thumb:
+          - /thumbs/IG013-1.svg
+        pros:
+          - 支持粘贴上传
+          - 可解析粘贴数据
+          - 交互自然
+        cons:
+          - 需要用户授权
+          - 隐私安全顾虑
+        useCases:
+          - 粘贴上传图片
+          - 粘贴链接自动识别
+          - 粘贴 Excel 数据到表格
+        antiCases:
+          - 无需粘贴功能
+          - 安全合规严格场景
+        related: [IG011, IG012]
+        tech: Clipboard API (read) + paste 事件
+        complexity: 3
+        rating: 3
+        status: active
+        tags:
+          - 粘贴
+          - 监听
+          - 上传
+
+  # ===== MapIntegration 地图集成 =====
+  - component: map-integration
+    name: 地图集成
+    description: 地图展示、定位、路径规划等地理信息集成
+
+    variants:
+      - id: IG014
+        name: 基础地图展示
+        tagline: 在页面中嵌入地图，支持标注和缩放
+        thumb:
+          - /thumbs/IG014-1.svg
+        pros:
+          - 位置信息直观
+          - 支持标注交互
+          - 用户易理解
+        cons:
+          - 需要地图 API Key
+          - 加载依赖较大
+        useCases:
+          - 门店/仓库位置展示
+          - 物流跟踪地图
+          - 客户分布可视化
+        antiCases:
+          - 无地理位置需求
+          - 内网无外网环境
+        related: [IG015, IG016]
+        tech: 高德地图 / 百度地图 / Mapbox GL JS
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 地图
+          - 标注
+          - 位置
+
+      - id: IG015
+        name: 地理围栏与区域选择
+        tagline: 在地图上绘制区域、设置地理围栏
+        thumb:
+          - /thumbs/IG015-1.svg
+        pros:
+          - 支持区域操作
+          - 可视化配置范围
+          - 适合业务区域管理
+        cons:
+          - 实现复杂
+          - 性能依赖地图引擎
+        useCases:
+          - 配送范围配置
+          - 销售区域划分
+          - 地理围栏告警
+        antiCases:
+          - 纯位置展示
+          - 无需区域操作
+        related: [IG014, IG016]
+        tech: 地图 SDK + Polygon / Circle 覆盖物
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 围栏
+          - 区域
+          - 绘制
+
+      - id: IG016
+        name: 路径规划与导航
+        tagline: 地图上展示路径、计算最优路线
+        thumb:
+          - /thumbs/IG016-1.svg
+        pros:
+          - 路线可视化
+          - 支持多种路径算法
+          - 物流场景必备
+        cons:
+          - 需要路径 API 支持
+          - 实时路况需额外费用
+        useCases:
+          - 物流配送路径
+          - 巡检路线规划
+          - 通勤班车路线
+        antiCases:
+          - 无路径需求
+          - 室内导航
+        related: [IG014, IG015]
+        tech: 地图 SDK + Direction API + Polyline
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 路径
+          - 导航
+          - 物流
+
+  # ===== Payment 支付 =====
+  - component: payment
+    name: 支付
+    description: 在线支付集成，支持扫码支付、快捷支付等
+
+    variants:
+      - id: IG017
+        name: 扫码支付
+        tagline: 生成支付二维码，用户扫码完成付款
+        thumb:
+          - /thumbs/IG017-1.svg
+        pros:
+          - PC 端支付友好
+          - 支付方式普及
+          - 安全性高
+        cons:
+          - 需要手机操作
+          - 二维码有时效性
+        useCases:
+          - B2B 订单支付
+          - SaaS 订阅付款
+          - 后台管理缴费
+        antiCases:
+          - 移动端场景
+          - 小额高频支付
+        related: [IG018, IG019]
+        tech: 微信/支付宝 Native 支付 + 二维码组件
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 扫码
+          - 支付
+          - PC
+
+      - id: IG018
+        name: H5 快捷支付
+        tagline: 移动端跳转支付，微信/支付宝内直接支付
+        thumb:
+          - /thumbs/IG018-1.svg
+        pros:
+          - 移动端体验流畅
+          - 支付步骤少
+          - 转化率高
+        cons:
+          - 仅移动端
+          - 需要微信/支付宝环境
+        useCases:
+          - 移动端商城
+          - 微信内 H5 支付
+          - 现场收款
+        antiCases:
+          - PC 端为主
+          - 无需在线支付
+        related: [IG017, IG019]
+        tech: 微信 H5 支付 / 支付宝 WAP 支付
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - H5
+          - 移动端
+          - 快捷
+
+      - id: IG019
+        name: 企业对公支付
+        tagline: 支持企业银行转账、对公账户支付
+        thumb:
+          - /thumbs/IG019-1.svg
+        pros:
+          - 适合大额交易
+          - 支持企业财务流程
+          - 合规性强
+        cons:
+          - 到账时间慢
+          - 需要人工确认
+          - 流程复杂
+        useCases:
+          - B2B 大额订单
+          - 企业采购付款
+          - 合同款项支付
+        antiCases:
+          - 个人消费者
+          - 小额即时支付
+        related: [IG017, IG018]
+        tech: 银行企业网银接口 + 支付状态轮询
+        complexity: 5
+        rating: 3
+        status: active
+        tags:
+          - 对公
+          - 银行
+          - 大额
+
+  # ===== SMS 短信 =====
+  - component: sms
+    name: 短信
+    description: 短信验证码、短信通知、短信营销
+
+    variants:
+      - id: IG020
+        name: 短信验证码
+        tagline: 发送短信验证码，支持倒计时重发
+        thumb:
+          - /thumbs/IG020-1.svg
+        pros:
+          - 安全性高
+          - 用户最熟悉
+          - 覆盖所有手机用户
+        cons:
+          - 有发送成本
+          - 依赖运营商
+          - 有延迟可能
+        useCases:
+          - 登录验证
+          - 手机号绑定
+          - 敏感操作确认
+        antiCases:
+          - 无手机号场景
+          - 内部系统免验证
+        related: [IG021, IG022]
+        tech: 阿里云 SMS / 腾讯云 SMS + 倒计时组件
+        complexity: 2
+        rating: 5
+        status: active
+        tags:
+          - 验证码
+          - 安全
+          - 手机
+
+      - id: IG021
+        name: 短信通知模板
+        tagline: 业务短信模板管理，批量发送通知短信
+        thumb:
+          - /thumbs/IG021-1.svg
+        pros:
+          - 模板化管理
+          - 支持批量发送
+          - 发送记录可追溯
+        cons:
+          - 需要模板审核
+          - 内容长度受限
+          - 到达率不稳定
+        useCases:
+          - 订单状态通知
+          - 审批结果通知
+          - 系统告警短信
+        antiCases:
+          - 即时性要求高
+          - 富文本通知
+        related: [IG020, IG022]
+        tech: SMS 服务商 API + 模板管理 + 发送队列
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 通知
+          - 模板
+          - 批量
+
+      - id: IG022
+        name: 短信营销与统计
+        tagline: 营销短信群发 + 发送效果统计面板
+        thumb:
+          - /thumbs/IG022-1.svg
+        pros:
+          - 支持大规模群发
+          - 发送效果可追踪
+          - 支持分群发送
+        cons:
+          - 合规要求严格
+          - 退订管理复杂
+          - 成本控制重要
+        useCases:
+          - 活动推广短信
+          - 会员营销通知
+          - 节日祝福群发
+        antiCases:
+          - 无营销需求
+          - 严格合规行业
+        related: [IG020, IG021]
+        tech: SMS 营销平台 API + 统计图表 + 发送调度
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 营销
+          - 统计
+          - 群发
+
+  # ===== WatermarkEmbed 水印 =====
+  - component: watermark-embed
+    name: 水印嵌入
+    description: 页面水印生成与嵌入，防止信息泄露
+
+    variants:
+      - id: IG023
+        name: 前端明水印
+        tagline: CSS/Canvas 生成可见水印覆盖页面
+        thumb:
+          - /thumbs/IG023-1.svg
+        pros:
+          - 实现简单
+          - 威慑效果好
+          - 可自定义内容
+        cons:
+          - 可被前端移除
+          - 影响页面美观
+        useCases:
+          - 内部管理后台
+          - 敏感数据页面
+          - 截图防泄露
+        antiCases:
+          - 高安全需求
+          - 面向客户页面
+        related: [IG024, IG025]
+        tech: CSS background + Canvas 水印生成
+        complexity: 1
+        rating: 4
+        status: active
+        tags:
+          - 明水印
+          - 防截图
+          - 安全
+
+      - id: IG024
+        name: 前端暗水印
+        tagline: 不可见的隐形水印嵌入，泄露后可追溯
+        thumb:
+          - /thumbs/IG024-1.svg
+        pros:
+          - 不影响用户体验
+          - 泄露可追溯
+          - 难以被清除
+        cons:
+          - 需要专门工具提取
+          - 信息承载有限
+        useCases:
+          - 核心数据系统
+          - 商业机密保护
+          - 泄露溯源
+        antiCases:
+          - 简单威慑需求
+          - 无追溯需求
+        related: [IG023, IG025]
+        tech: Canvas 像素操作 + 频域水印算法
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 暗水印
+          - 追溯
+          - 隐蔽
+
+      - id: IG025
+        name: 文档水印嵌入
+        tagline: 在导出的 PDF/图片中嵌入可见/不可见水印
+        thumb:
+          - /thumbs/IG025-1.svg
+        pros:
+          - 文件级别保护
+          - 不依赖页面
+          - 支持多种文件格式
+        cons:
+          - 需要服务端配合
+          - 影响文件大小
+        useCases:
+          - 合同文件水印
+          - 报告文档保护
+          - 设计图纸水印
+        antiCases:
+          - 纯页面保护
+          - 无需文件保护
+        related: [IG023, IG024]
+        tech: PDF-lib / Sharp / 服务端水印服务
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 文档
+          - 文件
+          - 保护

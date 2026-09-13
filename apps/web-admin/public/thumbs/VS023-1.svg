@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240">
+  <rect width="400" height="240" rx="8" fill="#fff7e6" />
+  <rect x="0" y="0" width="400" height="4" fill="#fa8c16" />
+  <g opacity="0.08">
+        <rect x="120" y="150" width="20" height="40" fill="#fa8c16" />
+        <rect x="155" y="135" width="20" height="55" fill="#fa8c16" />
+        <rect x="190" y="145" width="20" height="45" fill="#fa8c16" />
+        <rect x="225" y="125" width="20" height="65" fill="#fa8c16" />
+        <rect x="260" y="140" width="20" height="50" fill="#fa8c16" />
+      </g>
+  <text x="200" y="60" text-anchor="middle" font-size="36">📈</text>
+  <text x="200" y="100" text-anchor="middle" font-size="20" font-weight="bold" fill="#fa8c16" font-family="monospace">VS023</text>
+  <text x="200" y="155" text-anchor="middle" font-size="14" fill="#333" font-family="system-ui,sans-serif">迷你面积图</text>
+  <text x="200" y="215" text-anchor="middle" font-size="11" fill="#999" font-family="system-ui,sans-serif">数据可视化</text>
+</svg>

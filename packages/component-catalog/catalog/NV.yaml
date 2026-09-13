@@ -1,0 +1,784 @@
+# catalog/NV.yaml
+# 导航与布局类组件形态
+
+category: NV
+categoryName: 导航与布局
+categoryNameEn: Navigation
+description: 菜单、标签页、面包屑、布局容器等导航类组件
+
+components:
+  # ===== Menu 菜单 =====
+  - component: menu
+    name: 导航菜单
+    description: 系统级导航菜单
+
+    variants:
+      - id: NV001
+        name: 侧边栏菜单
+        tagline: 左侧固定菜单，B 端最经典的导航形态
+        thumb:
+          - /thumbs/NV001-1.svg
+        pros:
+          - 用户最熟悉
+          - 支持多级展开
+          - 可折叠节省空间
+        cons:
+          - 菜单项多时查找困难
+          - 占用横向空间
+        useCases:
+          - 一级菜单 5-10 个
+          - 需要多级子菜单
+          - PC 端管理系统
+        antiCases:
+          - 一级菜单超过 15 个
+          - 移动端场景
+        related: [NV002, NV003]
+        tech: Ant Design Menu (vertical)
+        complexity: 2
+        rating: 5
+        status: active
+        tags:
+          - 侧边栏
+          - 多级
+          - 可折叠
+
+      - id: NV002
+        name: 顶部导航菜单
+        tagline: 顶部水平菜单，简洁现代
+        thumb:
+          - /thumbs/NV002-1.svg
+        pros:
+          - 视觉简洁
+          - 不占横向空间
+          - 适合扁平结构
+        cons:
+          - 菜单项多时放不下
+          - 不支持多级展开
+        useCases:
+          - 一级菜单 3-7 个
+          - 扁平化导航结构
+          - 门户/官网
+        antiCases:
+          - 菜单项超过 10 个
+          - 需要多级子菜单
+        related: [NV001, NV003]
+        tech: Ant Design Menu (horizontal)
+        complexity: 1
+        rating: 4
+        status: active
+        tags:
+          - 顶部
+          - 水平
+          - 简洁
+
+      - id: NV003
+        name: 混合导航菜单
+        tagline: 顶部一级 + 侧边二级，大型系统首选
+        thumb:
+          - /thumbs/NV003-1.svg
+        pros:
+          - 支持大量菜单项
+          - 层次清晰
+          - 大型系统友好
+        cons:
+          - 实现复杂
+          - 占用空间较大
+        useCases:
+          - 一级菜单 5-15 个
+          - 每个一级下有 3-10 个二级
+          - 大型企业管理系统
+        antiCases:
+          - 菜单项少于 10 个
+          - 简单的系统
+        related: [NV001, NV002]
+        tech: Ant Design Menu + Layout
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 混合
+          - 大型系统
+          - 多级
+
+  # ===== Tabs 标签页 =====
+  - component: tabs
+    name: 标签页
+    description: 内容区域的标签切换
+
+    variants:
+      - id: NV004
+        name: 基础标签页
+        tagline: 卡片式标签，内容区切换
+        thumb:
+          - /thumbs/NV004-1.svg
+        pros:
+          - 用户最熟悉
+          - 实现简单
+          - 视觉清晰
+        cons:
+          - 标签多时放不下
+          - 不支持拖拽排序
+        useCases:
+          - 3-7 个标签
+          - 平级内容切换
+        antiCases:
+          - 标签超过 10 个
+          - 需要动态增删标签
+        related: [NV005, NV006]
+        tech: Ant Design Tabs
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 卡片式
+          - 基础
+
+      - id: NV005
+        name: 可关闭标签页
+        tagline: 支持动态增删，类似浏览器标签
+        thumb:
+          - /thumbs/NV005-1.svg
+        pros:
+          - 支持动态增删
+          - 用户可自定义
+          - 适合多任务
+        cons:
+          - 实现复杂
+          - 需要管理标签状态
+        useCases:
+          - 多页面编辑
+          - 工单/任务切换
+          - IDE 风格系统
+        antiCases:
+          - 固定标签内容
+          - 简单切换场景
+        related: [NV004, NV006]
+        tech: Ant Design Tabs (editable)
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 可关闭
+          - 动态
+          - 多任务
+
+      - id: NV006
+        name: 步骤标签页
+        tagline: 带步骤编号的标签，适合流程引导
+        thumb:
+          - /thumbs/NV006-1.svg
+        pros:
+          - 流程引导清晰
+          - 支持状态标记
+          - 视觉效果好
+        cons:
+          - 不适合无序切换
+          - 步骤多时占空间
+        useCases:
+          - 分步表单
+          - 流程审批
+          - 向导式操作
+        antiCases:
+          - 无顺序的内容
+          - 标签超过 8 个
+        related: [NV004, NV005]
+        tech: Ant Design Steps + Tabs
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 步骤
+          - 流程
+          - 引导
+
+  # ===== Breadcrumb 面包屑 =====
+  - component: breadcrumb
+    name: 面包屑
+    description: 路径导航，展示当前层级
+
+    variants:
+      - id: NV007
+        name: 基础面包屑
+        tagline: 层级路径展示，自动或手动配置
+        thumb:
+          - /thumbs/NV007-1.svg
+        pros:
+          - 路径清晰
+          - 支持快速回退
+          - 实现简单
+        cons:
+          - 层级深时过长
+          - 移动端体验差
+        useCases:
+          - 层级 3-5 层
+          - 需要路径导航
+        antiCases:
+          - 层级超过 7 层
+          - 扁平化系统
+        related: [NV008]
+        tech: Ant Design Breadcrumb
+        complexity: 1
+        rating: 4
+        status: active
+        tags:
+          - 路径
+          - 层级
+
+      - id: NV008
+        name: 带操作的面包屑
+        tagline: 面包屑 + 当前页操作按钮
+        thumb:
+          - /thumbs/NV008-1.svg
+        pros:
+          - 操作就近放置
+          - 减少页面跳转
+          - 信息密度高
+        cons:
+          - 视觉略拥挤
+          - 需要设计操作项
+        useCases:
+          - 详情页快捷操作
+          - 列表页快捷新建
+        antiCases:
+          - 操作项超过 5 个
+          - 简单展示页
+        related: [NV007]
+        tech: Ant Design Breadcrumb + Button
+        complexity: 2
+        rating: 3
+        status: active
+        tags:
+          - 操作
+          - 快捷
+
+  # ===== Pagination 分页 =====
+  - component: pagination
+    name: 分页
+    description: 数据列表分页导航
+
+    variants:
+      - id: NV009
+        name: 基础分页
+        tagline: 数字页码 + 上下页，最通用的分页形态
+        thumb:
+          - /thumbs/NV009-1.svg
+        pros:
+          - 用户最熟悉
+          - 实现简单
+          - 支持快速跳页
+        cons:
+          - 页码多时过长
+          - 不能直接到末页
+        useCases:
+          - 列表页 10-100 页
+          - 通用数据分页
+        antiCases:
+          - 总页数少于 3 页
+          - 无限滚动更合适的场景
+        related: [NV010, NV011]
+        tech: Ant Design Pagination
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 页码
+          - 基础
+          - 分页
+
+      - id: NV010
+        name: 加载更多分页
+        tagline: '"加载更多"按钮，渐进式浏览数据'
+        thumb:
+          - /thumbs/NV010-1.svg
+        pros:
+          - 不需跳页操作
+          - 用户阅读连贯
+          - 适合信息流
+        cons:
+          - 无法回到顶部
+          - 数据多时性能差
+        useCases:
+          - 消息/动态列表
+          - 商品列表
+          - 日志记录浏览
+        antiCases:
+          - 需要跳到特定页
+          - 数据量超过 10000 条
+        related: [NV009, NV011]
+        tech: Ant Design Button + 滚动加载
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 加载更多
+          - 渐进
+          - 信息流
+
+      - id: NV011
+        name: 无限滚动分页
+        tagline: 滚动到底部自动加载，无感翻页
+        thumb:
+          - /thumbs/NV011-1.svg
+        pros:
+          - 无感加载
+          - 用户操作最少
+          - 适合移动端
+        cons:
+          - 无法回到顶部
+          - 需要虚拟列表
+          - 跳页困难
+        useCases:
+          - 商品流/信息流
+          - 聊天记录
+          - 时间线浏览
+        antiCases:
+          - 需要快速跳页
+          - 每条数据高度不同
+        related: [NV009, NV010]
+        tech: react-virtualized + Intersection Observer
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 无限滚动
+          - 虚拟列表
+          - 自动加载
+
+  # ===== PageHeader 页头 =====
+  - component: page-header
+    name: 页头
+    description: 页面级头部导航与操作区
+
+    variants:
+      - id: NV012
+        name: 基础页头
+        tagline: 标题 + 返回 + 操作按钮，列表/详情页标配
+        thumb:
+          - /thumbs/NV012-1.svg
+        pros:
+          - 结构清晰
+          - 操作就近
+          - 用户易理解
+        cons:
+          - 占用纵向空间
+          - 简单页面可省略
+        useCases:
+          - 详情页标配
+          - 需要返回的二级页
+          - 列表页顶部操作
+        antiCases:
+          - 一级页面不需返回
+          - 全屏数据展示
+        related: [NV013, NV014]
+        tech: Ant Design PageHeader
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 页头
+          - 返回
+          - 操作
+
+      - id: NV013
+        name: 沉浸式页头
+        tagline: 背景图/色 + 标题叠加，视觉冲击力页面
+        thumb:
+          - /thumbs/NV013-1.svg
+        pros:
+          - 视觉效果好
+          - 品牌感强
+          - 信息层次清晰
+        cons:
+          - 需要准备背景图
+          - 颜色对比需注意
+        useCases:
+          - 产品详情页
+          - 活动/促销页
+          - 个人中心页
+        antiCases:
+          - 纯数据页面
+          - 后台管理类页面
+        related: [NV012, NV014]
+        tech: CSS Gradient/Image + 文字叠加
+        complexity: 2
+        rating: 3
+        status: active
+        tags:
+          - 沉浸式
+          - 品牌
+          - 背景
+
+      - id: NV014
+        name: 标签式页头
+        tagline: 页头 + 标签页结合，详情页多视图切换
+        thumb:
+          - /thumbs/NV014-1.svg
+        pros:
+          - 信息架构清晰
+          - 多视图集中管理
+          - 操作区域固定
+        cons:
+          - 占用空间较大
+          - 标签多时拥挤
+        useCases:
+          - 订单详情多标签
+          - 客户 360 视图
+          - 工单详情页
+        antiCases:
+          - 不需要多视图
+          - 标签超过 8 个
+        related: [NV012, NV013]
+        tech: Ant Design PageHeader + Tabs
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 标签式
+          - 多视图
+          - 详情页
+
+  # ===== SplitPanel 分栏面板 =====
+  - component: split-panel
+    name: 分栏面板
+    description: 左右/上下分栏布局，主从关系展示
+
+    variants:
+      - id: NV015
+        name: 左右分栏面板
+        tagline: 左列表 + 右详情，主从数据最佳实践
+        thumb:
+          - /thumbs/NV015-1.svg
+        pros:
+          - 主从关系清晰
+          - 不需页面跳转
+          - 操作效率高
+        cons:
+          - 小屏幕不适用
+          - 宽度需要合理分配
+        useCases:
+          - 邮件列表 + 邮件详情
+          - 订单列表 + 订单详情
+          - 文件树 + 文件内容
+        antiCases:
+          - 移动端场景
+          - 单条数据需要全屏
+        related: [NV016, NV017]
+        tech: CSS Flexbox + 自定义分栏
+        complexity: 2
+        rating: 5
+        status: active
+        tags:
+          - 左右分栏
+          - 主从
+          - 列表
+
+      - id: NV016
+        name: 可拖拽分栏
+        tagline: 分栏宽度可拖拽调整，灵活适配
+        thumb:
+          - /thumbs/NV016-1.svg
+        pros:
+          - 用户可自定义
+          - 适应不同数据
+          - 灵活性强
+        cons:
+          - 实现较复杂
+          - 需要处理边界情况
+        useCases:
+          - IDE 编辑器布局
+          - 数据对比面板
+          - 复杂管理界面
+        antiCases:
+          - 固定比例即可
+          - 简单展示页
+        related: [NV015, NV017]
+        tech: react-split-pane + 拖拽手柄
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 可拖拽
+          - 自定义
+          - 灵活
+
+      - id: NV017
+        name: 嵌套分栏面板
+        tagline: 多级分栏嵌套，复杂布局场景
+        thumb:
+          - /thumbs/NV017-1.svg
+        pros:
+          - 支持复杂布局
+          - 多任务并行展示
+          - 信息密度高
+        cons:
+          - 实现复杂
+          - 用户体验容易变差
+          - 小屏幕不可用
+        useCases:
+          - 项目管理面板
+          - 工单管理系统
+          - 多任务工作台
+        antiCases:
+          - 简单主从关系
+          - 移动端场景
+        related: [NV015, NV016]
+        tech: 嵌套 SplitPane + 状态管理
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 嵌套
+          - 复杂布局
+          - 多任务
+
+  # ===== Watermark 水印 =====
+  - component: watermark
+    name: 水印
+    description: 页面级水印，数据安全与溯源
+
+    variants:
+      - id: NV018
+        name: 文字水印
+        tagline: 用户信息/时间戳水印，防截图泄密
+        thumb:
+          - /thumbs/NV018-1.svg
+        pros:
+          - 实现简单
+          - 威慑效果好
+          - 可溯源
+        cons:
+          - 影响阅读体验
+          - 可被技术手段去除
+        useCases:
+          - 内部管理系统
+          - 敏感数据展示
+          - 金融/医疗后台
+        antiCases:
+          - 公开网站
+          - 不影响安全性的场景
+        related: [NV019]
+        tech: CSS background + Canvas 绘制
+        complexity: 1
+        rating: 4
+        status: active
+        tags:
+          - 文字水印
+          - 防泄密
+          - 溯源
+
+      - id: NV019
+        name: 隐形水印
+        tagline: 频域/像素水印，不影响视觉但可检测
+        thumb:
+          - /thumbs/NV019-1.svg
+        pros:
+          - 不影响用户体验
+          - 泄密可追溯
+          - 技术防护更强
+        cons:
+          - 实现复杂
+          - 需要专业检测工具
+          - 截图压缩后可能失效
+        useCases:
+          - 核心数据系统
+          - 商业机密展示
+          - 合规审计要求
+        antiCases:
+          - 不需要溯源的场景
+          - 预算有限的项目
+        related: [NV018]
+        tech: Canvas 像素嵌入 + 检测算法
+        complexity: 5
+        rating: 3
+        status: active
+        tags:
+          - 隐形水印
+          - 频域
+          - 合规
+
+  # ===== DrawerNav 抽屉导航 =====
+  - component: drawer-nav
+    name: 抽屉导航
+    description: 抽屉式导航面板，临时性导航
+
+    variants:
+      - id: NV020
+        name: 侧边抽屉菜单
+        tagline: 侧边抽屉展开菜单，临时性导航首选
+        thumb:
+          - /thumbs/NV020-1.svg
+        pros:
+          - 不占用常驻空间
+          - 支持复杂菜单
+          - 适合临时浏览
+        cons:
+          - 每次需手动展开
+          - 不便于频繁切换
+        useCases:
+          - 移动端导航
+          - 辅助功能菜单
+          - 筛选条件面板
+        antiCases:
+          - 高频菜单切换
+          - 一级导航主入口
+        related: [NV021, NV022]
+        tech: Ant Design Drawer
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 抽屉
+          - 临时
+          - 侧边
+
+      - id: NV021
+        name: 底部抽屉导航
+        tagline: 底部弹出的抽屉，移动端常用
+        thumb:
+          - /thumbs/NV021-1.svg
+        pros:
+          - 符合移动端习惯
+          - 拇指操作友好
+          - 内容区最大化
+        cons:
+          - 遮挡内容
+          - 高度受限
+        useCases:
+          - 移动端筛选面板
+          - 移动端搜索
+          - 移动分享面板
+        antiCases:
+          - PC 端场景
+          - 需要大量内容展示
+        related: [NV020, NV022]
+        tech: 'Ant Design Drawer (placement: bottom)'
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 底部
+          - 移动端
+          - 抽屉
+
+      - id: NV022
+        name: 多级抽屉导航
+        tagline: 抽屉嵌套抽屉，深层级临时导航
+        thumb:
+          - /thumbs/NV022-1.svg
+        pros:
+          - 支持深层级浏览
+          - 不需页面跳转
+          - 临时性信息展示
+        cons:
+          - 容易迷失层级
+          - 性能较差
+          - 用户体验复杂
+        useCases:
+          - 多级分类浏览
+          - 关联信息逐层展开
+          - 移动端多级筛选
+        antiCases:
+          - 层级超过 4 级
+          - 常驻导航需求
+        related: [NV020, NV021]
+        tech: Ant Design Drawer (嵌套) + 状态栈
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 嵌套
+          - 多级
+          - 临时
+
+  # ===== NotificationBar 通知栏 =====
+  - component: notification-bar
+    name: 通知栏
+    description: 系统通知与消息展示
+
+    variants:
+      - id: NV023
+        name: 顶部通知条
+        tagline: 顶部固定通知条，系统公告/维护通知
+        thumb:
+          - /thumbs/NV023-1.svg
+        pros:
+          - 用户第一时间看到
+          - 不影响主内容
+          - 可关闭/折叠
+        cons:
+          - 占用纵向空间
+          - 多条时效果差
+        useCases:
+          - 系统维护公告
+          - 版本升级通知
+          - 重要政策提醒
+        antiCases:
+          - 通知超过 3 条
+          - 非全局通知
+        related: [NV024, NV025]
+        tech: Ant Design Alert (banner)
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 顶部
+          - 公告
+          - 通知条
+
+      - id: NV024
+        name: 通知中心面板
+        tagline: 通知聚合中心，未读数 + 分类 + 详情
+        thumb:
+          - /thumbs/NV024-1.svg
+        pros:
+          - 通知集中管理
+          - 分类清晰
+          - 支持标记已读
+        cons:
+          - 实现复杂
+          - 需要 WebSocket 支持
+        useCases:
+          - 系统通知中心
+          - 工单消息汇总
+          - 站内信管理
+        antiCases:
+          - 通知数量少于 5 个
+          - 不需要分类管理
+        related: [NV023, NV025]
+        tech: Ant Design Popover/Badge + List + WebSocket
+        complexity: 4
+        rating: 4
+        status: active
+        tags:
+          - 通知中心
+          - 聚合
+          - 分类
+
+      - id: NV025
+        name: Toast 通知消息
+        tagline: 轻量级 Toast 提示，操作反馈首选
+        thumb:
+          - /thumbs/NV025-1.svg
+        pros:
+          - 轻量不打断
+          - 自动消失
+          - 用户习惯良好
+        cons:
+          - 信息停留时间短
+          - 不适合重要通知
+        useCases:
+          - 操作成功反馈
+          - 轻量级错误提示
+          - 状态变更通知
+        antiCases:
+          - 重要告警
+          - 需要用户确认的通知
+        related: [NV023, NV024]
+        tech: Ant Design message / Notification
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - Toast
+          - 反馈
+          - 轻量

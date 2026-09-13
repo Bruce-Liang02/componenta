@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240">
+  <rect width="400" height="240" rx="8" fill="#fff0f6" />
+  <rect x="0" y="0" width="400" height="4" fill="#eb2f96" />
+  <g opacity="0.08">
+        <circle cx="120" cy="150" r="12" stroke="#eb2f96" fill="none" stroke-width="1.5" />
+        <circle cx="200" cy="150" r="12" stroke="#eb2f96" fill="none" stroke-width="1.5" />
+        <circle cx="280" cy="150" r="12" stroke="#eb2f96" fill="none" stroke-width="1.5" />
+        <line x1="132" y1="150" x2="188" y2="150" stroke="#eb2f96" stroke-width="1.5" />
+        <line x1="212" y1="150" x2="268" y2="150" stroke="#eb2f96" stroke-width="1.5" />
+      </g>
+  <text x="200" y="60" text-anchor="middle" font-size="36">🔄</text>
+  <text x="200" y="100" text-anchor="middle" font-size="20" font-weight="bold" fill="#eb2f96" font-family="monospace">WF008</text>
+  <text x="200" y="155" text-anchor="middle" font-size="14" fill="#333" font-family="system-ui,sans-serif">决策表配置</text>
+  <text x="200" y="215" text-anchor="middle" font-size="11" fill="#999" font-family="system-ui,sans-serif">流程编排</text>
+</svg>

@@ -1,0 +1,930 @@
+# catalog/VS.yaml
+# 数据可视化类组件形态
+
+category: VS
+categoryName: 数据可视化
+categoryNameEn: Visualization & Statistics
+description: 图表、统计卡片、看板等数据可视化组件
+
+components:
+  # ===== StatCard 统计卡片 =====
+  - component: stat-card
+    name: 统计卡片
+    description: 关键指标的数字展示卡片
+
+    variants:
+      - id: VS001
+        name: 基础统计卡片
+        tagline: 数值 + 趋势箭头，最通用的指标展示
+        thumb:
+          - /thumbs/VS001-1.svg
+        pros:
+          - 简洁直观
+          - 用户最熟悉
+          - 实现简单
+        cons:
+          - 信息量少
+          - 缺少上下文
+        useCases:
+          - Dashboard 核心指标
+          - 关键 KPI 展示
+        antiCases:
+          - 需要详细趋势分析
+          - 需要多维度对比
+        related: [VS002, VS003]
+        tech: Ant Design Statistic + Card
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 指标
+          - KPI
+          - 基础
+
+      - id: VS002
+        name: 迷你图统计卡片
+        tagline: 数值 + 迷你趋势图，一卡看趋势
+        thumb:
+          - /thumbs/VS002-1.svg
+        pros:
+          - 同时展示数值和趋势
+          - 视觉效果好
+          - 信息密度高
+        cons:
+          - 实现稍复杂
+          - 空间占用比基础卡片大
+        useCases:
+          - 需要快速查看趋势
+          - Dashboard 指标区
+        antiCases:
+          - 不需要趋势信息
+          - 空间极其有限
+        related: [VS001, VS003]
+        tech: Ant Design Statistic + ECharts mini
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 迷你图
+          - 趋势
+          - 指标
+
+      - id: VS003
+        name: 多指标统计卡片
+        tagline: 一个卡片展示多个关联指标
+        thumb:
+          - /thumbs/VS003-1.svg
+        pros:
+          - 多指标关联展示
+          - 节省空间
+          - 适合对比分析
+        cons:
+          - 信息密度过高
+          - 需要仔细设计层次
+        useCases:
+          - 关联指标对比
+          - 财务数据展示
+        antiCases:
+          - 指标间无关联
+          - 指标超过 5 个
+        related: [VS001, VS002]
+        tech: Ant Design Card + Statistic + Grid
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 多指标
+          - 对比
+          - 关联
+
+  # ===== Chart 图表 =====
+  - component: chart
+    name: 图表
+    description: 折线图、柱状图、饼图等数据图表
+
+    variants:
+      - id: VS004
+        name: 基础折线图
+        tagline: 趋势展示最常用的图表类型
+        thumb:
+          - /thumbs/VS004-1.svg
+        pros:
+          - 趋势直观
+          - 用户易理解
+          - 实现成熟
+        cons:
+          - 数据点多时性能差
+          - 不适合分布展示
+        useCases:
+          - 时间序列数据
+          - 趋势分析
+        antiCases:
+          - 分类对比
+          - 分布展示
+        related: [VS005, VS006]
+        tech: ECharts Line
+        complexity: 2
+        rating: 5
+        status: active
+        tags:
+          - 折线图
+          - 趋势
+          - 时间序列
+
+      - id: VS005
+        name: 堆叠柱状图
+        tagline: 分类对比 + 构成分析
+        thumb:
+          - /thumbs/VS005-1.svg
+        pros:
+          - 同时展示总量和构成
+          - 分类对比直观
+        cons:
+          - 堆叠层数多时难比较
+          - 负值处理复杂
+        useCases:
+          - 月度销售对比
+          - 部门人员构成
+        antiCases:
+          - 只需要总量对比
+          - 堆叠超过 5 层
+        related: [VS004, VS006]
+        tech: ECharts Bar (stack)
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 柱状图
+          - 堆叠
+          - 构成
+
+      - id: VS006
+        name: 环形饼图
+        tagline: 占比展示，中间可放总计
+        thumb:
+          - /thumbs/VS006-1.svg
+        pros:
+          - 占比直观
+          - 中心可放关键数字
+          - 视觉效果好
+        cons:
+          - 分类多时难区分
+          - 精确值不易读
+        useCases:
+          - 分类占比展示
+          - 3-7 个分类
+        antiCases:
+          - 分类超过 10 个
+          - 需要精确值对比
+        related: [VS004, VS005]
+        tech: ECharts Pie (doughnut)
+        complexity: 1
+        rating: 4
+        status: active
+        tags:
+          - 饼图
+          - 占比
+          - 环形
+
+  # ===== Dashboard 看板 =====
+  - component: dashboard
+    name: 数据看板
+    description: 多图表组合的数据大屏/看板
+
+    variants:
+      - id: VS007
+        name: 标准数据看板
+        tagline: 指标卡 + 图表组合，管理驾驶舱
+        thumb:
+          - /thumbs/VS007-1.svg
+        pros:
+          - 信息全面
+          - 一屏看全局
+          - 可自定义布局
+        cons:
+          - 实现复杂
+          - 需要精心设计布局
+        useCases:
+          - 管理驾驶舱
+          - 运营数据看板
+          - 监控大屏
+        antiCases:
+          - 单一指标展示
+          - 移动端场景
+        related: [VS001, VS004]
+        tech: Grid Layout + ECharts + Statistic
+        complexity: 4
+        rating: 4
+        status: active
+        tags:
+          - 看板
+          - 驾驶舱
+          - 大屏
+
+      - id: VS008
+        name: 实时监控看板
+        tagline: 数据自动刷新，告警高亮，运维场景
+        thumb:
+          - /thumbs/VS008-1.svg
+        pros:
+          - 实时数据
+          - 告警自动高亮
+          - WebSocket 推送
+        cons:
+          - 需要后端 WebSocket 支持
+          - 性能要求高
+        useCases:
+          - 系统监控
+          - 服务器状态
+          - 实时业务数据
+        antiCases:
+          - 非实时场景
+          - 数据量小无需实时
+        related: [VS007, VS004]
+        tech: WebSocket + ECharts + 自动刷新
+        complexity: 5
+        rating: 4
+        status: active
+        tags:
+          - 实时
+          - 监控
+          - WebSocket
+
+  # ===== GaugeChart 仪表盘图 =====
+  - component: gauge-chart
+    name: 仪表盘图
+    description: 仪表盘式指标展示，适合完成度/达标率场景
+
+    variants:
+      - id: VS009
+        name: 基础仪表盘
+        tagline: 指针式仪表盘，一眼看清当前值与目标
+        thumb:
+          - /thumbs/VS009-1.svg
+        pros:
+          - 直观展示完成度
+          - 视觉冲击力强
+          - 用户无需解读数据
+        cons:
+          - 只展示单一指标
+          - 精确值不够直观
+        useCases:
+          - 销售目标达成率
+          - SLA 达标率展示
+        antiCases:
+          - 需要精确数值
+          - 需要多指标对比
+        related: [VS010, VS011]
+        tech: ECharts Gauge
+        complexity: 1
+        rating: 4
+        status: active
+        tags:
+          - 仪表盘
+          - 达标率
+          - 单指标
+
+      - id: VS010
+        name: 多色段仪表盘
+        tagline: 色段区分状态区间，告警阈值一目了然
+        thumb:
+          - /thumbs/VS010-1.svg
+        pros:
+          - 区间状态清晰
+          - 颜色辅助判断
+          - 支持多指标色段配置
+        cons:
+          - 色段配置复杂
+          - 颜色过多反而混乱
+        useCases:
+          - 系统健康度监控
+          - 风控指标预警
+          - 生产良品率展示
+        antiCases:
+          - 无明确阈值区间
+          - 指标变化范围不确定
+        related: [VS009, VS011]
+        tech: ECharts Gauge (multi-axis) + 色段配置
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 色段
+          - 阈值
+          - 预警
+
+      - id: VS011
+        name: 进度仪表盘
+        tagline: 半圆/全圆进度展示，适合完成率场景
+        thumb:
+          - /thumbs/VS011-1.svg
+        pros:
+          - 进度展示简洁
+          - 视觉占用空间小
+          - 支持动画过渡
+        cons:
+          - 信息量单一
+          - 无法展示趋势
+        useCases:
+          - 项目完成率
+          - 任务进度概览
+          - 绩效指标展示
+        antiCases:
+          - 需要对比多个进度
+          - 需要趋势回溯
+        related: [VS009, VS010]
+        tech: ECharts Gauge (progress mode)
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 进度
+          - 完成率
+          - 半圆
+
+  # ===== MapChart 地图图表 =====
+  - component: map-chart
+    name: 地图图表
+    description: 地理数据可视化，区域分布展示
+
+    variants:
+      - id: VS012
+        name: 区域着色地图
+        tagline: 按行政区域着色，区域指标一目了然
+        thumb:
+          - /thumbs/VS012-1.svg
+        pros:
+          - 地域分布直观
+          - 颜色深浅表达量级
+          - 用户无需额外解读
+        cons:
+          - 依赖行政区划数据
+          - 面积大但数据小的区域易误导
+        useCases:
+          - 全国销售业绩分布
+          - 区域客户密度
+          - 仓库/门店覆盖
+        antiCases:
+          - 无地理维度的数据
+          - 区域数量超过 50 个
+        related: [VS013, VS014]
+        tech: ECharts Map + GeoJSON
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 地图
+          - 区域
+          - 分布
+
+      - id: VS013
+        name: 散点气泡地图
+        tagline: 经纬度打点，气泡大小表达量级
+        thumb:
+          - /thumbs/VS013-1.svg
+        pros:
+          - 精确位置展示
+          - 气泡大小表达量级
+          - 支持多层叠加
+        cons:
+          - 点位重叠时难辨认
+          - 需要经纬度数据
+        useCases:
+          - 门店/分支机构分布
+          - 物流节点展示
+          - 设备位置监控
+        antiCases:
+          - 数据点超过 500 个
+          - 无精确经纬度
+        related: [VS012, VS014]
+        tech: ECharts Map (scatter) + 高德/百度地图 API
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 散点
+          - 气泡
+          - 位置
+
+      - id: VS014
+        name: 飞线迁徙地图
+        tagline: 飞线展示区域间流动关系
+        thumb:
+          - /thumbs/VS014-1.svg
+        pros:
+          - 流动关系展示清晰
+          - 视觉效果好
+          - 适合大屏展示
+        cons:
+          - 飞线多时性能差
+          - 信息解读门槛高
+        useCases:
+          - 全国物流路线
+          - 区域间资金流转
+          - 用户来源地迁徙
+        antiCases:
+          - 飞线超过 100 条
+          - 需要精确数值展示
+        related: [VS012, VS013]
+        tech: ECharts Map (lines) + 飞线特效
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 飞线
+          - 迁徙
+          - 大屏
+
+  # ===== FunnelChart 漏斗图 =====
+  - component: funnel-chart
+    name: 漏斗图
+    description: 转化流程各环节数据展示
+
+    variants:
+      - id: VS015
+        name: 基础漏斗图
+        tagline: 标准漏斗展示转化率，营销分析必备
+        thumb:
+          - /thumbs/VS015-1.svg
+        pros:
+          - 转化率直观
+          - 瓶颈环节易识别
+          - 用户易理解
+        cons:
+          - 只适合线性流程
+          - 环节多时底部太窄
+        useCases:
+          - 销售漏斗分析
+          - 营销转化追踪
+          - 注册流程转化
+        antiCases:
+          - 非转化类数据
+          - 环节超过 8 个
+        related: [VS016, VS017]
+        tech: ECharts Funnel
+        complexity: 2
+        rating: 5
+        status: active
+        tags:
+          - 漏斗
+          - 转化率
+          - 营销
+
+      - id: VS016
+        name: 对比漏斗图
+        tagline: 左右双漏斗对比，A/B 场景专用
+        thumb:
+          - /thumbs/VS016-1.svg
+        pros:
+          - 双漏斗对比直观
+          - 适合 A/B 分析
+          - 差异一目了然
+        cons:
+          - 视觉较复杂
+          - 实现需要自定义布局
+        useCases:
+          - 渠道转化对比
+          - 新老用户行为对比
+          - 活动前后效果对比
+        antiCases:
+          - 只需单一漏斗
+          - 对比维度超过 2 个
+        related: [VS015, VS017]
+        tech: ECharts Funnel (双实例对称)
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 对比
+          - 双漏斗
+          - A/B
+
+      - id: VS017
+        name: 阶段明细漏斗
+        tagline: 漏斗 + 阶段数据明细，下钻分析
+        thumb:
+          - /thumbs/VS017-1.svg
+        pros:
+          - 宏观转化 + 微观明细
+          - 支持下钻查看
+          - 信息密度高
+        cons:
+          - 实现复杂
+          - 交互设计需仔细打磨
+        useCases:
+          - 销售漏斗 + 阶段客户明细
+          - 生产质检 + 各阶段不良原因
+          - 招聘流程 + 各轮通过率
+        antiCases:
+          - 只需概览不需明细
+          - 各阶段数据量极小
+        related: [VS015, VS016]
+        tech: ECharts Funnel + Ant Design Table (联动)
+        complexity: 4
+        rating: 4
+        status: active
+        tags:
+          - 明细
+          - 下钻
+          - 阶段
+
+  # ===== Heatmap 热力图 =====
+  - component: heatmap
+    name: 热力图
+    description: 二维矩阵数据可视化
+
+    variants:
+      - id: VS018
+        name: 日历热力图
+        tagline: 日历矩阵展示日维度数据，运维/业务通用
+        thumb:
+          - /thumbs/VS018-1.svg
+        pros:
+          - 时间规律一目了然
+          - 视觉效果好
+          - 支持长周期数据
+        cons:
+          - 单日数值不够精确
+          - 跨时需要额外处理
+        useCases:
+          - 系统访问量日历
+          - 订单量周期规律
+          - 签到/活跃日历
+        antiCases:
+          - 非日维度数据
+          - 数据周期不足一个月
+        related: [VS019, VS020]
+        tech: ECharts Calendar + Heatmap
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 日历
+          - 时间
+          - 周期
+
+      - id: VS019
+        name: 矩阵热力图
+        tagline: 行×列二维矩阵，交叉分析利器
+        thumb:
+          - /thumbs/VS019-1.svg
+        pros:
+          - 二维关系清晰
+          - 适合大规模数据
+          - 颜色深浅易对比
+        cons:
+          - 行列过多时颜色难区分
+          - 需要 tooltip 辅助
+        useCases:
+          - 用户行为交叉分析
+          - 部门×月份绩效矩阵
+          - 产品×渠道销售热力
+        antiCases:
+          - 一维数据
+          - 行列超过 50
+        related: [VS018, VS020]
+        tech: ECharts Heatmap (Cartesian)
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 矩阵
+          - 交叉分析
+          - 二维
+
+      - id: VS020
+        name: 地理热力图
+        tagline: 地图 + 热力叠加，地理密度展示
+        thumb:
+          - /thumbs/VS020-1.svg
+        pros:
+          - 地理密度直观
+          - 适合人口/业务密度
+          - 视觉冲击力强
+        cons:
+          - 精度受瓦片影响
+          - 数据稀疏时效果差
+        useCases:
+          - 用户密度分布
+          - 商圈热力分析
+          - 物流订单密度
+        antiCases:
+          - 非地理数据
+          - 数据点少于 100 个
+        related: [VS018, VS019]
+        tech: ECharts Heatmap + Map/BMap
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 地理
+          - 密度
+          - 瓦片
+
+  # ===== Sparkline 迷你趋势 =====
+  - component: sparkline
+    name: 迷你趋势
+    description: 内嵌式迷你图表，适合表格/列表内嵌
+
+    variants:
+      - id: VS021
+        name: 表格内迷你线
+        tagline: 表格单元格内嵌入趋势线，信息密度极高
+        thumb:
+          - /thumbs/VS021-1.svg
+        pros:
+          - 与表格数据紧密结合
+          - 不额外占用空间
+          - 一目了然趋势
+        cons:
+          - 实现需自定义渲染
+          - 交互能力弱
+        useCases:
+          - 销售报表每行趋势
+          - 股票列表走势
+          - 设备指标表格
+        antiCases:
+          - 数据不需要趋势展示
+          - 行数据少于 5 个点
+        related: [VS022, VS023]
+        tech: ECharts (tiny mode) + Ant Design Table (custom cell)
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 表格
+          - 内嵌
+          - 迷你线
+
+      - id: VS022
+        name: 迷你柱状图
+        tagline: 微型柱状图，适合列表/卡片内嵌
+        thumb:
+          - /thumbs/VS022-1.svg
+        pros:
+          - 体积小
+          - 与文本混排容易
+          - 视觉效果好
+        cons:
+          - 无法展示精确数值
+          - 不适合复杂数据
+        useCases:
+          - 周报列表趋势
+          - 产品列表销量走势
+          - 消息列表热度
+        antiCases:
+          - 需要精确数值
+          - 数据维度超过 2 个
+        related: [VS021, VS023]
+        tech: ECharts Bar (tiny mode) / SVG inline
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 迷你柱
+          - 内嵌
+          - 轻量
+
+      - id: VS023
+        name: 迷你面积图
+        tagline: 渐变填充迷你面积，视觉效果好
+        thumb:
+          - /thumbs/VS023-1.svg
+        pros:
+          - 视觉吸引力强
+          - 渐变表达量级变化
+          - 与卡片/数字混排效果佳
+        cons:
+          - 渐变在暗色背景可能不协调
+          - 数据波动大时效果差
+        useCases:
+          - 统计卡片下方趋势
+          - 指标列表装饰
+          - 首页摘要区
+        antiCases:
+          - 纯数据分析场景
+          - 数据波动极大
+        related: [VS021, VS022]
+        tech: ECharts Line (areaStyle) + inline SVG
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 面积图
+          - 渐变
+          - 装饰
+
+  # ===== ComparisonPanel 对比面板 =====
+  - component: comparison-panel
+    name: 对比面板
+    description: 多维度数据对比展示
+
+    variants:
+      - id: VS024
+        name: 双栏对比面板
+        tagline: 左右两栏对比，指标差异一目了然
+        thumb:
+          - /thumbs/VS024-1.svg
+        pros:
+          - 对比直观
+          - 实现简单
+          - 用户易理解
+        cons:
+          - 只支持两方对比
+          - 指标多时过长
+        useCases:
+          - 套餐/方案对比
+          - 新旧版本对比
+          - 供应商报价对比
+        antiCases:
+          - 三方及以上对比
+          - 指标超过 10 个
+        related: [VS025, VS026]
+        tech: Ant Design Descriptions + Grid (双列)
+        complexity: 2
+        rating: 5
+        status: active
+        tags:
+          - 双栏
+          - 对比
+          - 方案
+
+      - id: VS025
+        name: 雷达图对比
+        tagline: 多维度雷达叠加，能力画像对比
+        thumb:
+          - /thumbs/VS025-1.svg
+        pros:
+          - 多维度同时对比
+          - 形状直观表达强弱
+          - 适合能力评估
+        cons:
+          - 维度多时线条交叉
+          - 精确值不易读
+        useCases:
+          - 员工能力评估对比
+          - 产品竞争力分析
+          - 供应商综合评分
+        antiCases:
+          - 维度超过 8 个
+          - 只需单维度对比
+        related: [VS024, VS026]
+        tech: ECharts Radar
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 雷达图
+          - 多维
+          - 评估
+
+      - id: VS026
+        name: 表格化对比面板
+        tagline: 表格形式展示多方对比，支持排序/筛选
+        thumb:
+          - /thumbs/VS026-1.svg
+        pros:
+          - 支持多方对比
+          - 数据精确
+          - 支持排序筛选
+        cons:
+          - 视觉效果一般
+          - 维度多时横向滚动
+        useCases:
+          - 供应商多方报价对比
+          - 产品规格对比表
+          - 人员资质对比
+        antiCases:
+          - 只需两方简单对比
+          - 指标数量动态变化大
+        related: [VS024, VS025]
+        tech: Ant Design Table (多列) + 高亮差异
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 表格
+          - 多方对比
+          - 排序
+
+  # ===== KpiAlert 指标预警 =====
+  - component: kpi-alert
+    name: 指标预警
+    description: 指标异常预警与告警展示
+
+    variants:
+      - id: VS027
+        name: 阈值告警卡片
+        tagline: 指标超阈值高亮，自动标红预警
+        thumb:
+          - /thumbs/VS027-1.svg
+        pros:
+          - 异常一目了然
+          - 规则配置简单
+          - 用户无需持续关注
+        cons:
+          - 只支持阈值判断
+          - 误报时需要人工复核
+        useCases:
+          - 库存低于安全值预警
+          - 销售额低于目标预警
+          - 系统性能超阈值
+        antiCases:
+          - 需要复杂趋势判断
+          - 阈值难以确定
+        related: [VS028, VS029, VS030]
+        tech: Ant Design Alert + Statistic + 阈值配置
+        complexity: 2
+        rating: 5
+        status: active
+        tags:
+          - 阈值
+          - 告警
+          - 高亮
+
+      - id: VS028
+        name: 趋势预警卡片
+        tagline: 基于趋势预测的预警，提前发现问题
+        thumb:
+          - /thumbs/VS028-1.svg
+        pros:
+          - 提前发现问题
+          - 比阈值更智能
+          - 支持趋势分析
+        cons:
+          - 需要历史数据
+          - 预测可能不准确
+        useCases:
+          - 销售趋势下行预警
+          - 用户流失趋势预警
+          - 设备性能衰减预测
+        antiCases:
+          - 历史数据不足
+          - 业务波动大难以预测
+        related: [VS027, VS029]
+        tech: ECharts + 简单预测算法 + Alert
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 趋势
+          - 预测
+          - 预警
+
+      - id: VS029
+        name: 告警聚合面板
+        tagline: 多指标告警聚合，按严重程度分级展示
+        thumb:
+          - /thumbs/VS029-1.svg
+        pros:
+          - 全局告警视图
+          - 分级分类清晰
+          - 支持批量处理
+        cons:
+          - 实现复杂
+          - 告警风暴时效果差
+        useCases:
+          - 运维监控告警中心
+          - 业务指标告警汇总
+          - 合规告警管理
+        antiCases:
+          - 单一指标告警
+          - 告警数量少于 5 个
+        related: [VS027, VS028, VS030]
+        tech: Ant Design List + Tag (级别) + 聚合逻辑
+        complexity: 4
+        rating: 4
+        status: active
+        tags:
+          - 聚合
+          - 分级
+          - 告警中心
+
+      - id: VS030
+        name: 告警时间线
+        tagline: 告警事件时间线，回溯分析专用
+        thumb:
+          - /thumbs/VS030-1.svg
+        pros:
+          - 告警时序清晰
+          - 支持回溯分析
+          - 关联事件易查找
+        cons:
+          - 事件多时过长
+          - 需要良好的筛选交互
+        useCases:
+          - 故障排查回溯
+          - 告警历史审查
+          - 合规审计证据
+        antiCases:
+          - 告警数量少于 10 个
+          - 不需要时序分析
+        related: [VS027, VS029]
+        tech: Ant Design Timeline + Alert + 筛选器
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 时间线
+          - 回溯
+          - 审计

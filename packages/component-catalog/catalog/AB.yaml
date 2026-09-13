@@ -1,0 +1,628 @@
+# catalog/AB.yaml
+# 通用能力类组件形态
+
+category: AB
+categoryName: 通用能力
+categoryNameEn: Ability / Hooks
+description: useRequest、useTable、请求拦截、useAuth、useLocale、useTheme、useDebounce 等通用能力封装
+
+components:
+  # ===== UseRequest 请求封装 =====
+  - component: use-request
+    name: 请求封装
+    description: 数据请求的通用 Hook 封装
+
+    variants:
+      - id: AB001
+        name: 基础 useRequest
+        tagline: 封装 loading/error/data，最通用的请求 Hook
+        thumb:
+          - /thumbs/AB001-1.svg
+        pros:
+          - 减少样板代码
+          - 统一的 loading/error 处理
+          - 支持缓存
+        cons:
+          - 需要学习 API
+          - 复杂场景需扩展
+        useCases:
+          - 通用数据请求
+          - 列表/详情请求
+          - 表单提交
+        antiCases:
+          - WebSocket 场景
+          - 文件上传下载
+        related: [AB002, AB003]
+        tech: ahooks useRequest / SWR
+        complexity: 2
+        rating: 5
+        status: active
+        tags:
+          - Hook
+          - 请求
+          - 缓存
+
+      - id: AB002
+        name: 分页 useRequest
+        tagline: 封装分页逻辑，与表格配合
+        thumb:
+          - /thumbs/AB002-1.svg
+        pros:
+          - 分页逻辑复用
+          - 与表格深度集成
+          - 支持前端/后端分页
+        cons:
+          - 需要配合表格使用
+          - API 略复杂
+        useCases:
+          - 列表页分页
+          - 与 useTable 配合
+        antiCases:
+          - 非列表场景
+          - 无限滚动
+        related: [AB001, AB003]
+        tech: 自定义 Hook + antd Table
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 分页
+          - 列表
+          - 表格
+
+      - id: AB003
+        name: 轮询 useRequest
+        tagline: 定时轮询数据，适合监控场景
+        thumb:
+          - /thumbs/AB003-1.svg
+        pros:
+          - 自动轮询
+          - 支持手动刷新
+          - 页面不可见时暂停
+        cons:
+          - 增加服务端压力
+          - 实时性不如 WebSocket
+        useCases:
+          - 数据监控
+          - 状态轮询
+          - 定时刷新
+        antiCases:
+          - 需要实时推送
+          - 服务端支持 WebSocket
+        related: [AB001, AB004]
+        tech: 自定义 Hook + setInterval
+        complexity: 2
+        rating: 3
+        status: active
+        tags:
+          - 轮询
+          - 定时
+          - 监控
+
+  # ===== UseTable 表格封装 =====
+  - component: use-table
+    name: 表格封装
+    description: 表格数据管理的通用 Hook
+
+    variants:
+      - id: AB004
+        name: 基础 useTable
+        tagline: 封装表格数据 + 排序 + 筛选
+        thumb:
+          - /thumbs/AB004-1.svg
+        pros:
+          - 减少表格样板代码
+          - 统一数据管理
+          - 支持排序筛选
+        cons:
+          - 需要配合 Table 使用
+          - 复杂功能需扩展
+        useCases:
+          - 标准列表页
+          - 与 useRequest 配合
+        antiCases:
+          - 非表格场景
+          - 树形表格
+        related: [AB002, AB005]
+        tech: 自定义 Hook + antd Table
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 表格
+          - 排序
+          - 筛选
+
+      - id: AB005
+        name: 可编辑 useTable
+        tagline: 支持行内编辑的表格 Hook
+        thumb:
+          - /thumbs/AB005-1.svg
+        pros:
+          - 支持行内编辑
+          - 批量操作
+          - 数据校验
+        cons:
+          - 实现复杂
+          - API 较多
+        useCases:
+          - 批量编辑
+          - Excel 风格编辑
+          - 数据录入表格
+        antiCases:
+          - 只读表格
+          - 简单展示
+        related: [AB004]
+        tech: 自定义 Hook + Form + Table
+        complexity: 4
+        rating: 4
+        status: active
+        tags:
+          - 可编辑
+          - 行内
+          - 批量
+
+  # ===== Interceptor 拦截器 =====
+  - component: interceptor
+    name: 请求拦截器
+    description: HTTP 请求/响应的统一拦截
+
+    variants:
+      - id: AB006
+        name: 认证拦截器
+        tagline: 自动注入 Token + 401 刷新
+        thumb:
+          - /thumbs/AB006-1.svg
+        pros:
+          - 自动处理认证
+          - Token 过期自动刷新
+          - 减少手动处理
+        cons:
+          - 需要统一 token 管理
+          - 刷新逻辑复杂
+        useCases:
+          - JWT 认证
+          - OAuth2 集成
+          - Token 自动刷新
+        antiCases:
+          - 无认证需求
+          - Session 认证
+        related: [AB007, AB008]
+        tech: Axios interceptor
+        complexity: 2
+        rating: 5
+        status: active
+        tags:
+          - 认证
+          - Token
+          - 刷新
+
+      - id: AB007
+        name: 错误拦截器
+        tagline: 统一错误处理 + 错误码映射
+        thumb:
+          - /thumbs/AB007-1.svg
+        pros:
+          - 统一错误处理
+          - 用户友好的错误提示
+          - 减少重复代码
+        cons:
+          - 需要统一错误码规范
+          - 特殊错误需要单独处理
+        useCases:
+          - 全局错误提示
+          - 错误日志上报
+          - 业务错误码映射
+        antiCases:
+          - 无统一错误处理需求
+          - 每个接口错误处理不同
+        related: [AB006, AB008]
+        tech: Axios interceptor + message
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 错误
+          - 统一处理
+          - 拦截
+
+      - id: AB008
+        name: 缓存拦截器
+        tagline: 请求级缓存，减少重复请求
+        thumb:
+          - /thumbs/AB008-1.svg
+        pros:
+          - 减少重复请求
+          - 提升响应速度
+          - 减轻服务端压力
+        cons:
+          - 缓存一致性问题
+          - 需要配置过期策略
+        useCases:
+          - 字典数据缓存
+          - 配置数据缓存
+          - 减少重复 GET 请求
+        antiCases:
+          - 数据实时性要求高
+          - 写操作
+        related: [AB006, AB007]
+        tech: Axios interceptor + LocalStorage / Memory
+        complexity: 3
+        rating: 3
+        status: active
+        tags:
+          - 缓存
+          - 性能
+          - 拦截
+
+  # ===== UseAuth 认证 Hook =====
+  - component: use-auth
+    name: 认证 Hook
+    description: 用户认证状态管理与权限校验
+
+    variants:
+      - id: AB009
+        name: 基础 useAuth
+        tagline: 封装登录状态、用户信息、登录/登出方法
+        thumb:
+          - /thumbs/AB009-1.svg
+        pros:
+          - 统一认证状态管理
+          - 组件内快速获取用户信息
+          - 支持全局 Context
+        cons:
+          - 需要配合 Provider 使用
+          - 复杂权限需扩展
+        useCases:
+          - 获取当前用户信息
+          - 判断登录状态
+          - 条件渲染
+        antiCases:
+          - 复杂 RBAC 权限
+          - 多租户场景
+        related: [AB010, AB011]
+        tech: React Context + useAuth Hook
+        complexity: 2
+        rating: 5
+        status: active
+        tags:
+          - 认证
+          - 用户
+          - 状态
+
+      - id: AB010
+        name: 权限校验 useAuth
+        tagline: 基于角色的权限校验 Hook，支持 hasPermission / hasRole
+        thumb:
+          - /thumbs/AB010-1.svg
+        pros:
+          - 细粒度权限控制
+          - 声明式权限校验
+          - 与 UI 深度集成
+        cons:
+          - 需要维护权限列表
+          - 权限变更需同步
+        useCases:
+          - 按钮级权限控制
+          - 路由权限守卫
+          - 功能模块访问控制
+        antiCases:
+          - 无权限需求
+          - 简单登录/登出
+        related: [AB009, AB011]
+        tech: useAuth + 权限 Context + RBAC
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 权限
+          - RBAC
+          - 校验
+
+      - id: AB011
+        name: 多租户 useAuth
+        tagline: 支持多租户切换、租户隔离的认证 Hook
+        thumb:
+          - /thumbs/AB011-1.svg
+        pros:
+          - 支持多租户场景
+          - 租户切换便捷
+          - 数据隔离友好
+        cons:
+          - 实现复杂
+          - 需要后端多租户支持
+        useCases:
+          - SaaS 多租户应用
+          - 集团多公司管理
+          - 租户切换场景
+        antiCases:
+          - 单租户系统
+          - 无租户概念
+        related: [AB009, AB010]
+        tech: useAuth + TenantContext + 租户 API
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 多租户
+          - SaaS
+          - 切换
+
+  # ===== UseLocale 国际化 Hook =====
+  - component: use-locale
+    name: 国际化 Hook
+    description: 多语言切换与翻译管理
+
+    variants:
+      - id: AB012
+        name: 基础 useLocale
+        tagline: 封装语言切换、翻译函数、日期/数字格式化
+        thumb:
+          - /thumbs/AB012-1.svg
+        pros:
+          - 统一多语言管理
+          - 支持运行时切换
+          - 与 Ant Design 国际化集成
+        cons:
+          - 需要翻译资源文件
+          - 翻译维护成本高
+        useCases:
+          - 多语言系统
+          - 国际化产品
+          - 出海业务
+        antiCases:
+          - 纯中文系统
+          - 无国际化需求
+        related: [AB013, AB014]
+        tech: react-i18next / Ant Design ConfigProvider
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 多语言
+          - 国际化
+          - 切换
+
+      - id: AB013
+        name: 按需加载 useLocale
+        tagline: 语言包按需加载，减少首屏体积
+        thumb:
+          - /thumbs/AB013-1.svg
+        pros:
+          - 首屏加载快
+          - 按需加载翻译
+          - 性能更优
+        cons:
+          - 需要动态导入支持
+          - 切换语言时需加载
+        useCases:
+          - 大型国际化应用
+          - 多语言超过 5 种
+          - 性能敏感场景
+        antiCases:
+          - 语言少于 3 种
+          - 翻译资源小
+        related: [AB012, AB014]
+        tech: react-i18next + 动态 import()
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 按需加载
+          - 性能
+          - 动态
+
+      - id: AB014
+        name: 翻译管理平台 useLocale
+        tagline: 与翻译管理平台集成，支持在线翻译与实时同步
+        thumb:
+          - /thumbs/AB014-1.svg
+        pros:
+          - 翻译实时更新
+          - 非开发人员可维护
+          - 版本管理友好
+        cons:
+          - 需要后端翻译服务
+          - 依赖外部平台
+        useCases:
+          - 大型企业国际化
+          - 多人协作翻译
+          - 翻译频繁更新
+        antiCases:
+          - 翻译固定不变
+          - 小型项目
+        related: [AB012, AB013]
+        tech: 翻译 API + useLocale + 缓存层
+        complexity: 4
+        rating: 3
+        status: active
+        tags:
+          - 平台
+          - 协作
+          - 实时
+
+  # ===== UseTheme 主题 Hook =====
+  - component: use-theme
+    name: 主题 Hook
+    description: 主题切换、设计令牌管理
+
+    variants:
+      - id: AB015
+        name: 基础 useTheme
+        tagline: 封装主题切换（亮/暗）、CSS 变量管理
+        thumb:
+          - /thumbs/AB015-1.svg
+        pros:
+          - 支持亮暗切换
+          - CSS 变量驱动
+          - 实现简单
+        cons:
+          - 仅支持预设主题
+          - 自定义程度有限
+        useCases:
+          - 亮/暗模式切换
+          - 用户偏好主题
+          - 基础品牌定制
+        antiCases:
+          - 多品牌主题
+          - 深度定制需求
+        related: [AB016, AB017]
+        tech: Ant Design ConfigProvider + CSS Variables
+        complexity: 2
+        rating: 5
+        status: active
+        tags:
+          - 主题
+          - 亮暗
+          - 切换
+
+      - id: AB016
+        name: 设计令牌 useTheme
+        tagline: 基于 Design Token 的主题系统，支持细粒度样式控制
+        thumb:
+          - /thumbs/AB016-1.svg
+        pros:
+          - 细粒度样式控制
+          - 设计开发一致
+          - 支持多品牌
+        cons:
+          - 需要 Design Token 规范
+          - 初始配置成本高
+        useCases:
+          - 多品牌 SaaS 系统
+          - 白标产品
+          - 设计规范落地
+        antiCases:
+          - 单一主题
+          - 无设计规范
+        related: [AB015, AB017]
+        tech: Design Token + CSS Variables + useTheme
+        complexity: 3
+        rating: 4
+        status: active
+        tags:
+          - 令牌
+          - 品牌
+          - 规范
+
+      - id: AB017
+        name: 运行时主题编辑器
+        tagline: 支持用户在界面中实时调整主题色、字体、间距等
+        thumb:
+          - /thumbs/AB017-1.svg
+        pros:
+          - 用户自主定制
+          - 实时预览效果
+          - 适合开放平台
+        cons:
+          - 实现复杂度高
+          - 需要主题持久化存储
+        useCases:
+          - 企业级定制平台
+          - 开放 SaaS 主题配置
+          - 设计系统工具
+        antiCases:
+          - 固定主题产品
+          - 内部系统
+        related: [AB015, AB016]
+        tech: useTheme + 主题编辑器 UI + 持久化
+        complexity: 5
+        rating: 3
+        status: active
+        tags:
+          - 编辑器
+          - 实时
+          - 定制
+
+  # ===== UseDebounce 防抖节流 Hook =====
+  - component: use-debounce
+    name: 防抖节流 Hook
+    description: 输入防抖、事件节流等性能优化
+
+    variants:
+      - id: AB018
+        name: 基础 useDebounce
+        tagline: 输入值防抖，延迟触发，减少高频请求
+        thumb:
+          - /thumbs/AB018-1.svg
+        pros:
+          - 减少无效请求
+          - 提升性能
+          - 实现简单
+        cons:
+          - 有延迟感知
+          - 不适合实时场景
+        useCases:
+          - 搜索框输入
+          - 表单实时校验
+          - 筛选条件变化
+        antiCases:
+          - 需要实时响应
+          - 按钮点击防重复
+        related: [AB019, AB020]
+        tech: 自定义 Hook + setTimeout / lodash.debounce
+        complexity: 1
+        rating: 5
+        status: active
+        tags:
+          - 防抖
+          - 输入
+          - 性能
+
+      - id: AB019
+        name: 事件节流 useThrottle
+        tagline: 高频事件节流，控制触发频率
+        thumb:
+          - /thumbs/AB019-1.svg
+        pros:
+          - 控制事件频率
+          - 保护性能敏感操作
+          - 滚动/resize 优化
+        cons:
+          - 丢失中间事件
+          - 可能影响交互体验
+        useCases:
+          - 滚动事件监听
+          - 窗口 resize
+          - 拖拽位置更新
+        antiCases:
+          - 需要捕获所有事件
+          - 点击类事件
+        related: [AB018, AB020]
+        tech: 自定义 Hook + requestAnimationFrame / lodash.throttle
+        complexity: 1
+        rating: 4
+        status: active
+        tags:
+          - 节流
+          - 事件
+          - 频率
+
+      - id: AB020
+        name: 异步防抖 useDebounceFn
+        tagline: 函数级防抖，支持异步操作与取消
+        thumb:
+          - /thumbs/AB020-1.svg
+        pros:
+          - 支持异步函数
+          - 可取消待执行
+          - 支持 leading/trailing 模式
+        cons:
+          - API 较复杂
+          - 需要理解防抖概念
+        useCases:
+          - 按钮提交防重复
+          - 异步搜索请求
+          - 数据自动保存
+        antiCases:
+          - 简单同步操作
+          - 不需要防抖
+        related: [AB018, AB019]
+        tech: 自定义 Hook + Promise + cancelable
+        complexity: 2
+        rating: 4
+        status: active
+        tags:
+          - 异步
+          - 函数
+          - 取消
